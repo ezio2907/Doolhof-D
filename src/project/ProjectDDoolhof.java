@@ -12,10 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-/**
- *
- * @author Admin
- */
+
 public class ProjectDDoolhof {
     public String[][] Doolhof;
 
