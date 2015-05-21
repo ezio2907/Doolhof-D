@@ -22,9 +22,9 @@ import javax.swing.JPanel;
  */
 public class FrameDoolhof {
     public Object[][] Doolhof;
-    public ArrayList<JLabel> labels= new ArrayList<>();
-    public GamePanel frame = new GamePanel();
-    public JPanel jPanel1 = new JPanel();
+    public ArrayList<JLabel> labels;
+    public GamePanel frame;
+    public JPanel jPanel1;
     public Speler S;
     public Doolhof Dh = new Doolhof();
     public JButton startButton = new JButton("Start");
@@ -32,6 +32,12 @@ public class FrameDoolhof {
     
     
     public void LevelCreater(int level){
+        frame.dispose();
+        jPanel1 = new JPanel();
+        labels= new ArrayList<>();
+        S = null;
+        frame = new GamePanel();
+            
         Dh.setDoolhof(level);
         Doolhof = Dh.Doolhof;
         S = Dh.S;
@@ -107,7 +113,7 @@ public class FrameDoolhof {
                 public void keyPressed(KeyEvent e) 
                 {
                     if(e.getKeyCode() == 37){ //Links
-                        if(S.canMove("Links")){
+                        if(S.canMove("Links") == 1){
                             int X = S.getX();
                             int Y = S.getY();
                             Loop(X-1, Y);
@@ -116,7 +122,7 @@ public class FrameDoolhof {
                         
                     }
                     if(e.getKeyCode() == 38){ //Omhoog
-                        if(S.canMove("Omhoog")){
+                        if(S.canMove("Omhoog")== 1){
                             int X = S.getX();
                             int Y = S.getY();
                             Loop(X, Y-1);
@@ -124,7 +130,7 @@ public class FrameDoolhof {
                         }
                     }
                     if(e.getKeyCode() == 39){ //Rechts
-                        if(S.canMove("Rechts")){
+                        if(S.canMove("Rechts")== 1){
                             int X = S.getX();
                             int Y = S.getY();
                             Loop(X+1, Y);
@@ -132,7 +138,7 @@ public class FrameDoolhof {
                         }
                     }
                     if(e.getKeyCode() == 40){ //Omlaag
-                        if(S.canMove("Omlaag")){
+                        if(S.canMove("Omlaag")== 1){
                             int X = S.getX();
                             int Y = S.getY();
                             Loop(X, Y+1);
@@ -158,11 +164,6 @@ public class FrameDoolhof {
     class OpnieuwKnop implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent event){
-            frame.dispose();
-            jPanel1 = new JPanel();
-            labels= new ArrayList<>();
-            S = null;
-            frame = new GamePanel();
             LevelCreater(Dh.level);
         }        
     }
