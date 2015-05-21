@@ -35,7 +35,7 @@ public class FrameDoolhof {
         Dh.setDoolhof(level);
         Doolhof = Dh.Doolhof;
         S = Dh.S;
-        S.Doolhof = this.Doolhof;
+        S.Dh = this.Dh;
         Dh.aantalStappen = 0;
         
         ActionListener opnieuwKnop = new OpnieuwKnop();
@@ -66,6 +66,8 @@ public class FrameDoolhof {
                     labels.get(positie).setText("U");
                 } else if(Doolhof[y][x] == Dh.V){
                     labels.get(positie).setText("V");
+                } else if(Doolhof[y][x] == Dh.M){
+                    labels.get(positie).setText("M");
                 } else if(Doolhof[y][x] == " "){
                     labels.get(positie).setText(" ");
                 }

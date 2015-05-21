@@ -15,7 +15,8 @@ import javax.swing.JFrame;
 public class Speler {
     public int X;
     public int Y;
-    public Object[][] Doolhof;
+    public Doolhof Dh;
+    
     
     public int getX(){
         return X;
@@ -45,10 +46,10 @@ public class Speler {
             x = getX();
             y = getY()+1;
         }
-        if(!"X".equals(Doolhof[y][x])){
-            if(!" ".equals(Doolhof[y][x])){
-                
-            }
+        if(!Dh.X.equals(Dh.Doolhof[y][x]) && !Dh.M.equals(Dh.Doolhof[y][x])){
+//            if(!" ".equals(Dh.Doolhof[y][x])){
+//                
+//            }
             return true;
         } else {
             return false;
