@@ -11,4 +11,8 @@ package project;
 public class Valsspeler {
     public boolean verwoestbaar = false;
     public boolean loopbaar = true;
+    
+    public void pickUp(){
+        
+    }
 }

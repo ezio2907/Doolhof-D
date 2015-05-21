@@ -70,6 +70,18 @@ public class Doolhof {
         return Doolhof1;
     }
     
+//    private Object[][] Doolhof3(){
+//        Object[][] Doolhof3 = {
+//            {X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X},
+//            {X,V," "," "," "," "," "," "," ",M," ",M," "," "," "," ",M," "," ",M," "," "," "," "," "," "," "," ",X},
+//            {X," ",M,M,M," "," ",M,," ",M," "," "," ",M,M," ",M," ",M," ",M," ",M," ",M," "," ",M," ",X},
+//            {X," ",M," ",M,M," ",
+//            
+//            {X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X}
+//                }; 
+//        return Doolhof3;
+//    }
+    
     @Override
     public String toString(){
         String waarde = "";

@@ -32,7 +32,6 @@ public class FrameDoolhof {
     
     
     public void LevelCreater(int level){
-        frame.dispose();
         jPanel1 = new JPanel();
         labels= new ArrayList<>();
         S = null;
@@ -164,6 +163,7 @@ public class FrameDoolhof {
     class OpnieuwKnop implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent event){
+        frame.dispose();
             LevelCreater(Dh.level);
         }        
     }
