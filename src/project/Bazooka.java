@@ -12,4 +12,7 @@ public class Bazooka {
     public boolean verwoestbaar = false;
     public boolean loopbaar = true;
     
+    public String teken(){
+        return "B";
+    }
 }

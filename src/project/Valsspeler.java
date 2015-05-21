@@ -15,4 +15,7 @@ public class Valsspeler {
     public void pickUp(){
         
     }
+    public String teken(){
+        return "V";
+    }
 }

@@ -6,6 +6,7 @@ package project;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -28,7 +29,10 @@ public class FrameDoolhof {
     public Speler S;
     public Doolhof Dh = new Doolhof();
     public JButton startButton = new JButton("Start");
+    public JButton pauzeButton = new JButton("Pauze");
     public JButton opnieuwButton = new JButton("Opnieuw");
+    public boolean pauze = false;
+    public JLabel stappenLabel = new JLabel();
     
     
     public void LevelCreater(int level){
@@ -43,8 +47,18 @@ public class FrameDoolhof {
         S.Dh = this.Dh;
         Dh.aantalStappen = 0;
         
+        JPanel knopenPanel = new JPanel(new GridLayout(1,6));
         ActionListener opnieuwKnop = new OpnieuwKnop();
         opnieuwButton.addActionListener(opnieuwKnop);
+        ActionListener startknop = new StartKnop();
+        startButton.addActionListener(startknop);
+        ActionListener pauzeknop = new PauzeKnop();
+        pauzeButton.addActionListener(pauzeknop);
+        stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
+        knopenPanel.add(opnieuwButton);
+        knopenPanel.add(startButton);
+        knopenPanel.add(pauzeButton);
+        knopenPanel.add(stappenLabel);
         
         frame.setLayout(new BorderLayout());
         int FRAME_WIDTH = 20*Doolhof.length;
@@ -53,7 +67,7 @@ public class FrameDoolhof {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setTitle("");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(opnieuwButton, BorderLayout.NORTH);
+        frame.add(knopenPanel, BorderLayout.NORTH);
                 
         jPanel1.setLayout(new GridLayout(Doolhof.length, Doolhof.length));
         int positie = 0;
@@ -61,19 +75,22 @@ public class FrameDoolhof {
             for (int x = 0; x < Doolhof.length; x++) {
                 JLabel label = new JLabel();
                 labels.add(label);
-                if(Doolhof[y][x] == Dh.B){
-                    labels.get(positie).setText("B");
-                } else if(Doolhof[y][x] == Dh.H){
-                    labels.get(positie).setText("H");
-                } else if(Doolhof[y][x] == Dh.X){
-                    labels.get(positie).setText("X");
-                } else if(Doolhof[y][x] == Dh.U){
-                    labels.get(positie).setText("U");
-                } else if(Doolhof[y][x] == Dh.V){
-                    labels.get(positie).setText("V");
+                if(Doolhof[y][x] == Dh.X){
+                    labels.get(positie).setText(Dh.X.teken());
                 } else if(Doolhof[y][x] == Dh.M){
-                    labels.get(positie).setText("M");
-                } else if(Doolhof[y][x] == " "){
+                    labels.get(positie).setText(Dh.M.teken());
+//                } else if(Doolhof[y][x] == Dh.B){
+//                    labels.get(positie).setText(Dh.B.teken());
+//                } else if(Doolhof[y][x] == Dh.U){
+//                    labels.get(positie).setText(Dh.U.teken());
+//                } else if(Doolhof[y][x] == Dh.V){
+//                    labels.get(positie).setText(Dh.V.teken());
+//                } else if(Doolhof[y][x] == Dh.H){
+//                    labels.get(positie).setText(Dh.H.teken());
+//                } else if(Doolhof[y][x] == " "){
+//                    labels.get(positie).setText(" ");
+//                }
+                } else {
                     labels.get(positie).setText(" ");
                 }
                 jPanel1.add(label);   
@@ -111,37 +128,43 @@ public class FrameDoolhof {
                 @Override
                 public void keyPressed(KeyEvent e) 
                 {
-                    if(e.getKeyCode() == 37){ //Links
-                        if(S.canMove("Links") == 1){
-                            int X = S.getX();
-                            int Y = S.getY();
-                            Loop(X-1, Y);
-                            S.setP(X-1, Y);
+                    if(!pauze){
+                        System.out.println(pauze);
+                        if(e.getKeyCode() == 37){ //Links
+                            if(S.canMove("Links") == 1){
+                                int X = S.getX();
+                                int Y = S.getY();
+                                Loop(X-1, Y);
+                                S.setP(X-1, Y);
+                                stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
+                            }
                         }
-                        
-                    }
-                    if(e.getKeyCode() == 38){ //Omhoog
-                        if(S.canMove("Omhoog")== 1){
-                            int X = S.getX();
-                            int Y = S.getY();
-                            Loop(X, Y-1);
-                            S.setP(X, Y-1);
+                        if(e.getKeyCode() == 38){ //Omhoog
+                            if(S.canMove("Omhoog")== 1){
+                                int X = S.getX();
+                                int Y = S.getY();
+                                Loop(X, Y-1);
+                                S.setP(X, Y-1);
+                                stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
+                            }
                         }
-                    }
-                    if(e.getKeyCode() == 39){ //Rechts
-                        if(S.canMove("Rechts")== 1){
-                            int X = S.getX();
-                            int Y = S.getY();
-                            Loop(X+1, Y);
-                            S.setP(X+1, Y);
+                        if(e.getKeyCode() == 39){ //Rechts
+                            if(S.canMove("Rechts")== 1){
+                                int X = S.getX();
+                                int Y = S.getY();
+                                Loop(X+1, Y);
+                                S.setP(X+1, Y);
+                                stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
+                            }
                         }
-                    }
-                    if(e.getKeyCode() == 40){ //Omlaag
-                        if(S.canMove("Omlaag")== 1){
-                            int X = S.getX();
-                            int Y = S.getY();
-                            Loop(X, Y+1);
-                            S.setP(X, Y+1);
+                        if(e.getKeyCode() == 40){ //Omlaag
+                            if(S.canMove("Omlaag")== 1){
+                                int X = S.getX();
+                                int Y = S.getY();
+                                Loop(X, Y+1);
+                                S.setP(X, Y+1);
+                                stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
+                            }
                         }
                     }
                 }
@@ -163,8 +186,29 @@ public class FrameDoolhof {
     class OpnieuwKnop implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent event){
-        frame.dispose();
+            frame.dispose();
             LevelCreater(Dh.level);
+        }        
+    }
+    
+    class StartKnop implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent event){
+            if(pauze){
+                jPanel1.setVisible(true);
+                pauze = false;
+                System.out.println(pauze);
+            }
+        }        
+    }
+    
+    class PauzeKnop implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent event){
+            if(!pauze){
+                jPanel1.setVisible(false);
+                pauze = true;
+            }
         }        
     }
 }

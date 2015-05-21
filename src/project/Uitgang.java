@@ -11,4 +11,8 @@ package project;
 public class Uitgang {
     public boolean verwoestbaar = false;
     public boolean loopbaar = true;  
+    
+    public String teken(){
+        return "U";
+    }
 }

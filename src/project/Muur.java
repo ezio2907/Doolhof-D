@@ -12,4 +12,12 @@ public class Muur {
     public boolean verwoestbaar = true;
     public boolean loopbaar = false;
     
+    public String teken(){
+        if(verwoestbaar){
+            return "M";
+        } else if (!verwoestbaar){
+            return "X";
+        }
+        return null;
+    }
 }

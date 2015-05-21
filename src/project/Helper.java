@@ -11,4 +11,8 @@ package project;
 public class Helper {
     public boolean verwoestbaar = false;
     public boolean loopbaar = true;
+    
+    public String teken(){
+        return "H";
+    }
 }
