@@ -31,7 +31,7 @@ public class FrameDoolhof {
     public JButton startButton = new JButton("Start");
     public JButton pauzeButton = new JButton("Pauze");
     public JButton opnieuwButton = new JButton("Opnieuw");
-    public boolean pauze = false;
+    public boolean pauze;
     public JLabel stappenLabel = new JLabel();
     
     
@@ -56,8 +56,8 @@ public class FrameDoolhof {
         pauzeButton.addActionListener(pauzeknop);
         stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
         knopenPanel.add(opnieuwButton);
-        knopenPanel.add(startButton);
         knopenPanel.add(pauzeButton);
+        knopenPanel.add(startButton);
         knopenPanel.add(stappenLabel);
         
         frame.setLayout(new BorderLayout());
@@ -89,7 +89,6 @@ public class FrameDoolhof {
 //                    labels.get(positie).setText(Dh.H.teken());
 //                } else if(Doolhof[y][x] == " "){
 //                    labels.get(positie).setText(" ");
-//                }
                 } else {
                     labels.get(positie).setText(" ");
                 }
@@ -105,6 +104,7 @@ public class FrameDoolhof {
         
         frame.setFocusable(true);
         frame.setVisible(true);
+        pauze = false;
     }
     
     public void Loop(int nX, int nY){
@@ -118,7 +118,6 @@ public class FrameDoolhof {
         labels.get(positie).setText(" ");
         
         Dh.aantalStappen++;
-        System.out.println(Dh.aantalStappen);
         Dh.gameOver();
     }
     
@@ -129,9 +128,8 @@ public class FrameDoolhof {
                 public void keyPressed(KeyEvent e) 
                 {
                     if(!pauze){
-                        System.out.println(pauze);
                         if(e.getKeyCode() == 37){ //Links
-                            if(S.canMove("Links") == 1){
+                            if(S.canMove("Links")){
                                 int X = S.getX();
                                 int Y = S.getY();
                                 Loop(X-1, Y);
@@ -140,7 +138,7 @@ public class FrameDoolhof {
                             }
                         }
                         if(e.getKeyCode() == 38){ //Omhoog
-                            if(S.canMove("Omhoog")== 1){
+                            if(S.canMove("Omhoog")){
                                 int X = S.getX();
                                 int Y = S.getY();
                                 Loop(X, Y-1);
@@ -149,7 +147,7 @@ public class FrameDoolhof {
                             }
                         }
                         if(e.getKeyCode() == 39){ //Rechts
-                            if(S.canMove("Rechts")== 1){
+                            if(S.canMove("Rechts")){
                                 int X = S.getX();
                                 int Y = S.getY();
                                 Loop(X+1, Y);
@@ -158,7 +156,7 @@ public class FrameDoolhof {
                             }
                         }
                         if(e.getKeyCode() == 40){ //Omlaag
-                            if(S.canMove("Omlaag")== 1){
+                            if(S.canMove("Omlaag")){
                                 int X = S.getX();
                                 int Y = S.getY();
                                 Loop(X, Y+1);
@@ -197,7 +195,7 @@ public class FrameDoolhof {
             if(pauze){
                 jPanel1.setVisible(true);
                 pauze = false;
-                System.out.println(pauze);
+                startButton.setFocusable(pauze);
             }
         }        
     }

@@ -30,7 +30,7 @@ public class Speler {
     }
     
     
-    public int canMove(String direction) {
+    public boolean canMove(String direction) {
         int x;
         int y;
         if("Rechts".equals(direction)) {
@@ -53,16 +53,14 @@ public class Speler {
                 } else if ("H".equals(Dh.Doolhof[y][x])){
                     
                 } else if ("V".equals(Dh.Doolhof[y][x])){
-                    Dh.maxStappen = Dh.maxStappen + 20;
+                    
                 } else if ("U".equals(Dh.Doolhof[y][x])){
-                    Dh.level++;
-                    return 2;
+                    
                 }
             }
-            
-            return 1;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     }
     

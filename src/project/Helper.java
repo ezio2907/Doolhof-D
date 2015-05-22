@@ -15,4 +15,22 @@ public class Helper {
     public String teken(){
         return "H";
     }
+    
+//    public ??? vindWeg(){
+//        Gebruik een "Stack" lijst
+//        //pop = verwijder laatste in stack
+//        //push = toevoegen als laatste in stack
+//        
+//        Push all paths from the point on which you are standing on a stack.
+//            While (the stack is not empty){
+//                Pop a path from the stack.
+//                Follow the path until you reach an exit, intersection, or dead end.
+//                If (you found an exit){
+//                    Congratulations!
+//                } else if (you found an intersection){
+//                    Push all paths meeting at the intersection, except the current one, onto the stack.
+//                }
+//            }
+//    }
+    
 }
