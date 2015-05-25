@@ -12,9 +12,6 @@ public class Valsspeler {
     public boolean verwoestbaar = false;
     public boolean loopbaar = true;
     
-    public void pickUp(){
-        
-    }
     public String teken(){
         return "V";
     }

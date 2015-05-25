@@ -15,4 +15,7 @@ public class Uitgang {
     public String teken(){
         return "U";
     }
+    public void pickUp(){
+        
+    }
 }

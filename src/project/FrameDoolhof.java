@@ -61,8 +61,8 @@ public class FrameDoolhof {
         knopenPanel.add(stappenLabel);
         
         frame.setLayout(new BorderLayout());
-        int FRAME_WIDTH = 20*Doolhof.length;
-        int FRAME_HEIGHT = 20*Doolhof.length + 50;
+        int FRAME_WIDTH = 18*Doolhof.length;
+        int FRAME_HEIGHT = 18*Doolhof.length + 30;
         frame.setVisible(false);
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setTitle("");
@@ -101,6 +101,7 @@ public class FrameDoolhof {
         int Y = S.getY();
         int positie2 = Y * Doolhof.length + X;        
         labels.get(positie2).setText("S");
+        S.labels = labels;
         
         frame.setFocusable(true);
         frame.setVisible(true);
@@ -206,6 +207,7 @@ public class FrameDoolhof {
             if(!pauze){
                 jPanel1.setVisible(false);
                 pauze = true;
+                startButton.setFocusable(pauze);
             }
         }        
     }

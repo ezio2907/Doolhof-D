@@ -15,4 +15,7 @@ public class Bazooka {
     public String teken(){
         return "B";
     }
+    public void pickUp(){
+        
+    }
 }

@@ -4,6 +4,11 @@
  */
 package project;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Stack;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Admin
@@ -11,9 +16,13 @@ package project;
 public class Helper {
     public boolean verwoestbaar = false;
     public boolean loopbaar = true;
+    public ArrayList<JLabel> labels;
     
     public String teken(){
         return "H";
+    }
+    public void pickUp(ArrayList<JLabel> labels){
+        this.labels = labels;
     }
     
 //    public ??? vindWeg(){
@@ -32,5 +41,7 @@ public class Helper {
 //                }
 //            }
 //    }
+    
+    
     
 }
