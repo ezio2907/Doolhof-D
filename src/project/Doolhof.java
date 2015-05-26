@@ -13,21 +13,62 @@ import javax.swing.*;
  * @author Admin
  */
 public class Doolhof {
-    public Object[][] Doolhof;
-    public int maxStappen;
-    public ArrayList<JLabel> labels= new ArrayList<>();
-    public Speler S = new Speler();
-    public int aantalStappen = 0;
-    public int level = 0;
-    public Helper H = new Helper();
-    public Bazooka B = new Bazooka();
-    public Uitgang U = new Uitgang();
-    public Valsspeler V = new Valsspeler();
-    public Muur X = new Muur();
-    public Muur M = new Muur();
+    private Object[][] Doolhof;
+    private int maxStappen;
+    private ArrayList<JLabel> labels= new ArrayList<>();
+    private Speler S = new Speler();
+    private int aantalStappen = 0;
+    private int level = 0;
+    private Helper H = new Helper();
+    private Bazooka B = new Bazooka();
+    private Uitgang U = new Uitgang();
+    private Valsspeler V = new Valsspeler();
+    private Muur X = new Muur();
+    private Muur M = new Muur();
         
     Doolhof(){
         M.verwoestbaar = false;
+    }
+    
+    public Object[][] getDoolhof(){
+        return Doolhof;
+    }
+    public Helper getHelper(){
+        return H;
+    }
+    public Bazooka getBazooka(){
+        return B;
+    }
+    public Uitgang getUitgang(){
+        return U;
+    }
+    public Valsspeler getValsspeler(){
+        return V;
+    }
+    public Muur getMuurM(){
+        return M;
+    }
+    public Muur getMuurX(){
+        return X;
+    }
+    public int getStappen(){
+        return aantalStappen;
+    }
+    public Speler getSpeler(){
+        return S;
+    }
+    public int getMaxStappen(){
+        return maxStappen;
+    }
+    public int getLevel(){
+        return level;
+    }
+    
+    public void setStappen(int aantalStappen){
+        this.aantalStappen = aantalStappen;
+        if (aantalStappen >= maxStappen){
+            System.out.println("GAME OVER!!");
+        }
     }
     
     public void setDoolhof(int nummer){
@@ -94,11 +135,5 @@ public class Doolhof {
             }
         }
         return waarde;
-    }
-    
-    public void gameOver(){
-        if (aantalStappen == maxStappen){
-            System.out.println("GAME OVER!!");
-        }
     }
 }

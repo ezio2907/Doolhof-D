@@ -15,11 +15,11 @@ import javax.swing.JLabel;
  * @author Admin
  */
 public class Speler {
-    public int X;
-    public int Y;
-    public Doolhof Dh;
-    public boolean bazooka = false;
-    public ArrayList<JLabel> labels;
+    private int X;
+    private int Y;
+    private Doolhof Dh;
+    private boolean bazooka = false;
+    private ArrayList<JLabel> labels;
     
     
     public int getX(){
@@ -27,6 +27,15 @@ public class Speler {
     }
     public int getY(){
         return Y;
+    }
+    public ArrayList<JLabel> getLabels(){
+        return labels;
+    }
+    public void setDoolhof(Doolhof Dh){
+        this.Dh = Dh;
+    }
+    public void setLabels(ArrayList<JLabel> labels){
+        this.labels = labels;
     }
     public void setP(int X, int Y){
         this.X = X;
@@ -50,16 +59,16 @@ public class Speler {
             x = getX();
             y = getY()+1;
         }
-        if(!Dh.X.equals(Dh.Doolhof[y][x]) && !Dh.M.equals(Dh.Doolhof[y][x])){
-            if(!" ".equals(Dh.Doolhof[y][x])){
-//                if("B".equals(Dh.Doolhof[y][x])){
-//                    Dh.B.pickUp();
-//                } else if ("H".equals(Dh.Doolhof[y][x])){
-//                    Dh.H.pickUp(labels);
-//                } else if ("V".equals(Dh.Doolhof[y][x])){
-//                    Dh.V.pickUp();
-//                } else if ("U".equals(Dh.Doolhof[y][x])){
-//                    Dh.U.pickUp();
+        if(!Dh.getMuurX().equals(Dh.getDoolhof()[y][x]) && !Dh.getMuurM().equals(Dh.getDoolhof()[y][x])){
+            if(!" ".equals(Dh.getDoolhof()[y][x])){
+//                if("B".equals(Dh.getDoolhof()[y][x])){
+//                    Dh.getBazooka().pickUp();
+//                } else if ("H".equals(Dh.getDoolhof()[y][x])){
+//                    Dh.getHelper().pickUp(labels);
+//                } else if ("V".equals(Dh.getDoolhof()[y][x])){
+//                    Dh.getValsspeler.pickUp();
+//                } else if ("U".equals(Dh.getDoolhof()[y][x])){
+//                    Dh.getUitgang.pickUp();
 //                }
             }
             return true;

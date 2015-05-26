@@ -42,10 +42,10 @@ public class FrameDoolhof {
         frame = new GamePanel();
             
         Dh.setDoolhof(level);
-        Doolhof = Dh.Doolhof;
-        S = Dh.S;
-        S.Dh = this.Dh;
-        Dh.aantalStappen = 0;
+        Doolhof = Dh.getDoolhof();
+        S = Dh.getSpeler();
+        S.setDoolhof(Dh);
+        Dh.setStappen(0);
         
         JPanel knopenPanel = new JPanel(new GridLayout(1,6));
         ActionListener opnieuwKnop = new OpnieuwKnop();
@@ -54,7 +54,7 @@ public class FrameDoolhof {
         startButton.addActionListener(startknop);
         ActionListener pauzeknop = new PauzeKnop();
         pauzeButton.addActionListener(pauzeknop);
-        stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
+        stappenLabel.setText("Stappen: " + (Dh.getMaxStappen()));
         knopenPanel.add(opnieuwButton);
         knopenPanel.add(pauzeButton);
         knopenPanel.add(startButton);
@@ -75,18 +75,18 @@ public class FrameDoolhof {
             for (int x = 0; x < Doolhof.length; x++) {
                 JLabel label = new JLabel();
                 labels.add(label);
-                if(Doolhof[y][x] == Dh.X){
-                    labels.get(positie).setText(Dh.X.teken());
-                } else if(Doolhof[y][x] == Dh.M){
-                    labels.get(positie).setText(Dh.M.teken());
-//                } else if(Doolhof[y][x] == Dh.B){
-//                    labels.get(positie).setText(Dh.B.teken());
-//                } else if(Doolhof[y][x] == Dh.U){
-//                    labels.get(positie).setText(Dh.U.teken());
-//                } else if(Doolhof[y][x] == Dh.V){
-//                    labels.get(positie).setText(Dh.V.teken());
-//                } else if(Doolhof[y][x] == Dh.H){
-//                    labels.get(positie).setText(Dh.H.teken());
+                if(Doolhof[y][x] == Dh.getMuurX()){
+                    labels.get(positie).setText(Dh.getMuurX().teken());
+                } else if(Doolhof[y][x] == Dh.getMuurM()){
+                    labels.get(positie).setText(Dh.getMuurM().teken());
+//                } else if(Doolhof[y][x] == Dh.getBazooka()){
+//                    labels.get(positie).setText(Dh.getBazooka().teken());
+//                } else if(Doolhof[y][x] == Dh.getUitgang()){
+//                    labels.get(positie).setText(Dh.getUitgang().teken());
+//                } else if(Doolhof[y][x] == Dh.getValsspeler()){
+//                    labels.get(positie).setText(Dh.getValsspeler().teken());
+//                } else if(Doolhof[y][x] == Dh.getHelper()){
+//                    labels.get(positie).setText(Dh.getHelper().teken());
 //                } else if(Doolhof[y][x] == " "){
 //                    labels.get(positie).setText(" ");
                 } else {
@@ -101,14 +101,16 @@ public class FrameDoolhof {
         int Y = S.getY();
         int positie2 = Y * Doolhof.length + X;        
         labels.get(positie2).setText("S");
-        S.labels = labels;
+        S.setLabels(labels);
         
         frame.setFocusable(true);
         frame.setVisible(true);
-        pauze = false;
+        jPanel1.setVisible(false);
+        pauze = true;
+        startButton.setFocusable(pauze);
     }
     
-    public void Loop(int nX, int nY){
+    private void Loop(int nX, int nY){
         int X = S.getX();
         int Y = S.getY();
         int positie = Y * Doolhof.length + X;
@@ -118,8 +120,7 @@ public class FrameDoolhof {
         
         labels.get(positie).setText(" ");
         
-        Dh.aantalStappen++;
-        Dh.gameOver();
+        Dh.setStappen(Dh.getStappen() + 1);
     }
     
     public class GamePanel extends JFrame {
@@ -135,7 +136,7 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 Loop(X-1, Y);
                                 S.setP(X-1, Y);
-                                stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
+                                stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
                             }
                         }
                         if(e.getKeyCode() == 38){ //Omhoog
@@ -144,7 +145,7 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 Loop(X, Y-1);
                                 S.setP(X, Y-1);
-                                stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
+                                stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
                             }
                         }
                         if(e.getKeyCode() == 39){ //Rechts
@@ -153,7 +154,7 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 Loop(X+1, Y);
                                 S.setP(X+1, Y);
-                                stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
+                                stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
                             }
                         }
                         if(e.getKeyCode() == 40){ //Omlaag
@@ -162,7 +163,7 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 Loop(X, Y+1);
                                 S.setP(X, Y+1);
-                                stappenLabel.setText("Stappen: " + (Dh.maxStappen - Dh.aantalStappen));
+                                stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
                             }
                         }
                     }
@@ -186,8 +187,60 @@ public class FrameDoolhof {
         @Override
         public void actionPerformed(ActionEvent event){
             frame.dispose();
-            LevelCreater(Dh.level);
+            LevelReCreater(Dh.getLevel());
         }        
+    }
+    
+    public void LevelReCreater(int level){
+        labels.clear();
+        jPanel1.removeAll();
+            
+        Dh.setDoolhof(level);
+        Doolhof = Dh.getDoolhof();
+        S = Dh.getSpeler();
+        S.setDoolhof(Dh);
+        Dh.setStappen(0);
+        
+        stappenLabel.setText("Stappen: " + (Dh.getMaxStappen()));
+        
+        int positie = 0;
+        for (int y = 0; y < Doolhof.length; y++) {
+            for (int x = 0; x < Doolhof.length; x++) {
+                JLabel label = new JLabel();
+                labels.add(label);
+                if(Doolhof[y][x] == Dh.getMuurX()){
+                    labels.get(positie).setText(Dh.getMuurX().teken());
+                } else if(Doolhof[y][x] == Dh.getMuurM()){
+                    labels.get(positie).setText(Dh.getMuurM().teken());
+//                } else if(Doolhof[y][x] == Dh.getBazooka()){
+//                    labels.get(positie).setText(Dh.getBazooka().teken());
+//                } else if(Doolhof[y][x] == Dh.getUitgang()){
+//                    labels.get(positie).setText(Dh.getUitgang().teken());
+//                } else if(Doolhof[y][x] == Dh.getValsspeler()){
+//                    labels.get(positie).setText(Dh.getValsspeler().teken());
+//                } else if(Doolhof[y][x] == Dh.getHelper()){
+//                    labels.get(positie).setText(Dh.getHelper().teken());
+//                } else if(Doolhof[y][x] == " "){
+//                    labels.get(positie).setText(" ");
+                } else {
+                    labels.get(positie).setText(" ");
+                }
+                jPanel1.add(label);   
+                frame.add(jPanel1);
+                positie++;
+            }
+        }   
+        int X = S.getX();
+        int Y = S.getY();
+        int positie2 = Y * Doolhof.length + X;        
+        labels.get(positie2).setText("S");
+        S.setLabels(labels);
+        
+        frame.setFocusable(true);
+        frame.setVisible(true);
+        jPanel1.setVisible(false);
+        pauze = true;
+        startButton.setFocusable(pauze);
     }
     
     class StartKnop implements ActionListener{
