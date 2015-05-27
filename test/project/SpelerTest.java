@@ -44,8 +44,6 @@ public class SpelerTest {
         int expResult = 0;
         int result = instance.getX();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -58,8 +56,6 @@ public class SpelerTest {
         int expResult = 0;
         int result = instance.getY();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -72,8 +68,6 @@ public class SpelerTest {
         ArrayList expResult = null;
         ArrayList result = instance.getLabels();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -85,8 +79,6 @@ public class SpelerTest {
         Doolhof Dh = null;
         Speler instance = new Speler();
         instance.setDoolhof(Dh);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -98,8 +90,6 @@ public class SpelerTest {
         ArrayList<JLabel> labels = null;
         Speler instance = new Speler();
         instance.setLabels(labels);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -112,22 +102,42 @@ public class SpelerTest {
         int Y = 0;
         Speler instance = new Speler();
         instance.setP(X, Y);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
-     * Test of canMove method, of class Speler.
+     * Test of setP method, of class Speler.
+     */
+    @Test
+    public void testSetPmin() {
+        System.out.println("setPmin");
+        int X = -1;
+        int Y = -1;
+        Speler instance = new Speler();
+        instance.setP(X, Y);
+    }
+    
+    /**
+     * Test of setP method, of class Speler.
+     */
+    @Test
+    public void testSetPteGroot() {
+        System.out.println("setPteGroot");
+        int X = 35;
+        int Y = 35;
+        Speler instance = new Speler();
+        instance.setP(X, Y);
+    }
+    
+    /**
+     * Test of setLabels method, of class Speler.
      */
     @Test
     public void testCanMove() {
-        System.out.println("canMove");
-        String direction = "";
+        System.out.println("setLabels");
+        String directie = "Rechts";
         Speler instance = new Speler();
         boolean expResult = false;
-        boolean result = instance.canMove(direction);
+        boolean result = instance.canMove(directie);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 }

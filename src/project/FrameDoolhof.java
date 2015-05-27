@@ -71,6 +71,7 @@ public class FrameDoolhof {
                 
         jPanel1.setLayout(new GridLayout(Doolhof.length, Doolhof.length));
         int positie = 0;
+        System.out.println(Doolhof.length);
         for (int y = 0; y < Doolhof.length; y++) {
             for (int x = 0; x < Doolhof.length; x++) {
                 JLabel label = new JLabel();

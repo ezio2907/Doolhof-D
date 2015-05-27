@@ -22,7 +22,7 @@ public class ProjectDDoolhof {
      */
     public static void main(String[] args) {
         FrameDoolhof FD = new FrameDoolhof();
-        FD.LevelCreater(1);
+        FD.LevelCreater(3);
     }
        
 }
