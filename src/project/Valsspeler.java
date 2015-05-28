@@ -8,14 +8,14 @@ package project;
  *
  * @author Admin
  */
-public class Valsspeler {
-    public boolean verwoestbaar = false;
-    public boolean loopbaar = true;
+public class Valsspeler extends Voorwerpen{
     
+    @Override
     public String teken(){
         return "V";
     }
     
+    @Override
     public void pickUp(){
         
     }

@@ -13,14 +13,14 @@ import javax.swing.JLabel;
  *
  * @author Admin
  */
-public class Helper {
-    public boolean verwoestbaar = false;
-    public boolean loopbaar = true;
-    public ArrayList<JLabel> labels;
+public class Helper extends Voorwerpen{
     
+    
+    @Override
     public String teken(){
         return "H";
     }
+    
     public void pickUp(ArrayList<JLabel> labels){
         this.labels = labels;
     }

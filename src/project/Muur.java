@@ -8,16 +8,18 @@ package project;
  *
  * @author Admin
  */
-public class Muur {
-    public boolean verwoestbaar = true;
-    public boolean loopbaar = false;
+public class Muur extends Voorwerpen{
     
+    Muur(boolean verwoestbaar){
+        this.vernietigbaar = verwoestbaar;
+    }
+    
+    @Override
     public String teken(){
-        if(verwoestbaar){
+        if(vernietigbaar){
             return "M";
-        } else if (!verwoestbaar){
+        } else{
             return "X";
         }
-        return null;
     }
 }

@@ -23,26 +23,24 @@ import javax.swing.JPanel;
  */
 public class FrameDoolhof {
     public Object[][] Doolhof;
-    public ArrayList<JLabel> labels = new ArrayList<>();
-    public GamePanel frame = new GamePanel();
-    public JPanel jPanel1 = new JPanel();
+    public ArrayList<JLabel> labels;
+    public GamePanel frame;
+    public JPanel jPanel1;
     public Speler S;
-    public Doolhof Dh = new Doolhof();
+    public Doolhof Dh;
     public JButton startButton = new JButton("Start");
     public JButton pauzeButton = new JButton("Pauze");
     public JButton opnieuwButton = new JButton("Opnieuw");
     public boolean pauze;
     public JLabel stappenLabel = new JLabel();
     
-    
-    public void LevelCreater(int level){  
-        labels.clear();
-        jPanel1.removeAll();
-                      
+    public void opbouw(int level){
+        labels = new ArrayList<>();
+        frame = new GamePanel();
+        jPanel1 = new JPanel();
+        Dh = new Doolhof();
         Dh.setDoolhof(level);
         Doolhof = Dh.getDoolhof();
-        S = Dh.getSpeler();
-        Dh.setStappen(0);
         
         JPanel knopenPanel = new JPanel(new GridLayout(1,6));
         ActionListener opnieuwKnop = new OpnieuwKnop();
@@ -67,6 +65,20 @@ public class FrameDoolhof {
         frame.add(knopenPanel, BorderLayout.NORTH);
                 
         jPanel1.setLayout(new GridLayout(Doolhof.length, Doolhof.length));
+        
+        LevelCreater(level);
+    }
+    
+    
+    public void LevelCreater(int level){  
+        labels.clear();
+        jPanel1.removeAll();
+        Dh.setDoolhof(level);
+        Doolhof = Dh.getDoolhof();
+        S = Dh.getSpeler();
+        Dh.setStappen(0);
+        stappenLabel.setText("Stappen: " + (Dh.getMaxStappen()));
+        
         int positie = 0;
         for (int y = 0; y < Doolhof.length; y++) {
             for (int x = 0; x < Doolhof.length; x++) {
@@ -214,7 +226,8 @@ public class FrameDoolhof {
     class OpnieuwKnop implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent event){
-            frame.dispose();
+            pauze = true;
+            jPanel1.setVisible(false);
             LevelCreater(Dh.getLevel());
         }        
     }

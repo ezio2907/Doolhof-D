@@ -8,13 +8,13 @@ package project;
  *
  * @author Admin
  */
-public class Uitgang {
-    public boolean verwoestbaar = false;
-    public boolean loopbaar = true;  
+public class Uitgang  extends Voorwerpen{
     
+    @Override
     public String teken(){
         return "U";
     }
+    @Override
     public void pickUp(){
         
     }

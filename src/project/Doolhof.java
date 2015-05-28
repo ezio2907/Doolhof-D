@@ -15,7 +15,6 @@ import javax.swing.*;
 public class Doolhof {
     private Object[][] Doolhof;
     private int maxStappen;
-    private ArrayList<JLabel> labels= new ArrayList<>();
     private Speler S = new Speler();
     private int aantalStappen = 0;
     private int level = 0;
@@ -23,13 +22,9 @@ public class Doolhof {
     private Bazooka B = new Bazooka();
     private Uitgang U = new Uitgang();
     private Valsspeler V = new Valsspeler();
-    private Muur X = new Muur();
-    private Muur M = new Muur();
+    private Muur X = new Muur(false);
+    private Muur M = new Muur(true);
         
-    Doolhof(){
-        M.verwoestbaar = false;
-    }
-    
     public Object[][] getDoolhof(){
         return Doolhof;
     }
@@ -63,6 +58,7 @@ public class Doolhof {
     public int getLevel(){
         return level;
     }
+    
     
     public boolean setStappen(int aantalStappen){
         this.aantalStappen = aantalStappen;

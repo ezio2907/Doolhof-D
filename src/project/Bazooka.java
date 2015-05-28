@@ -8,13 +8,14 @@ package project;
  *
  * @author Admin
  */
-public class Bazooka {
-    public boolean verwoestbaar = false;
-    public boolean loopbaar = true;
+public class Bazooka extends Voorwerpen{
     
+    @Override
     public String teken(){
         return "B";
     }
+    
+    @Override
     public void pickUp(){
         
     }
