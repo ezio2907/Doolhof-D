@@ -10,19 +10,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-
+import javax.swing.*;
 
 public class ProjectDDoolhof {
+
     public String[][] Doolhof;
 
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        FrameDoolhof FD = new FrameDoolhof();
-        FD.opbouw(1);
+        startFrame start = new startFrame();
+        start.FrameMaken();
     }
-       
+    
+    public static void beginLevel(int level){
+        FrameDoolhof FD = new FrameDoolhof();
+        FD.opbouw(level);
+    }
+
 }
