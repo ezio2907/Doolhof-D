@@ -14,7 +14,7 @@ import javax.swing.JLabel;
  * @author Admin
  */
 public class Helper extends Voorwerpen{
-    
+    public ArrayList<JLabel> labels;
     
     @Override
     public String teken(){

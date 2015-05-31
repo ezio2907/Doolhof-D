@@ -14,7 +14,7 @@ import javax.swing.JLabel;
  *
  * @author Admin
  */
-public class Speler {
+public class Speler{
     private int X;
     private int Y;
     private boolean bazooka = false;
@@ -30,7 +30,6 @@ public class Speler {
         this.X = X;
         this.Y = Y;
     }
-
     public String teken() {
         return "S";
     }

@@ -6,6 +6,7 @@ package project;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,12 +17,12 @@ public class ProjectDDoolhof {
 
     public String[][] Doolhof;
 
-    public static void main(String[] args) {
-        startFrame start = new startFrame();
-        start.FrameMaken();
+    public static void main(String[] args) throws IOException {
+        FrameDoolhof FD = new FrameDoolhof();
+        FD.opbouw(1);
     }
     
-    public static void beginLevel(int level){
+    public static void beginLevel(int level) throws IOException{
         FrameDoolhof FD = new FrameDoolhof();
         FD.opbouw(level);
     }

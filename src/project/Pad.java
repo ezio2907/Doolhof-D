@@ -8,15 +8,10 @@ package project;
  *
  * @author Admin
  */
-public class Uitgang  extends Voorwerpen{
-    
+public class Pad extends Voorwerpen{
     @Override
     public String teken(){
-        return "U";
+        return " ";
     }
     
-    
-    public boolean pickU(){
-        return true;
-    }
 }

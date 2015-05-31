@@ -8,43 +8,23 @@ import java.awt.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  *
  * @author Admin
  */
 public class Doolhof {
-    private Object[][] Doolhof;
+    private Character[][] Doolhof;
     private int maxStappen;
     private Speler S = new Speler();
     private int aantalStappen = 0;
     private int level = 0;
-    private Helper H = new Helper();
-    private Bazooka B = new Bazooka();
-    private Uitgang U = new Uitgang();
-    private Valsspeler V = new Valsspeler();
-    private Muur X = new Muur(false);
-    private Muur M = new Muur(true);
         
-    public Object[][] getDoolhof(){
+    public Character[][] getDoolhof(){
         return Doolhof;
-    }
-    public Helper getHelper(){
-        return H;
-    }
-    public Bazooka getBazooka(){
-        return B;
-    }
-    public Uitgang getUitgang(){
-        return U;
-    }
-    public Valsspeler getValsspeler(){
-        return V;
-    }
-    public Muur getMuurM(){
-        return M;
-    }
-    public Muur getMuurX(){
-        return X;
     }
     public int getStappen(){
         return aantalStappen;
@@ -58,6 +38,9 @@ public class Doolhof {
     public int getLevel(){
         return level;
     }
+    public void levelUp(){
+        level++;
+    }
     
     
     public boolean setStappen(int aantalStappen){
@@ -69,114 +52,126 @@ public class Doolhof {
         return false;
     }
     
-    public void setDoolhof(int nummer){
+    public void setDoolhof(int nummer) throws IOException{
         if(nummer == 1){
             this.Doolhof = Doolhof1();
             maxStappen = 80;
-            S.setP(1,1);
             level = nummer;
         }else if(nummer == 2){
             this.Doolhof = Doolhof2();
             maxStappen = 90;
-            S.setP(1,11);
             level = nummer;
         }else if(nummer == 3){
             this.Doolhof = Doolhof3();
             maxStappen = 120;
-            S.setP(13,13);
+            level = nummer;
+        }else if(nummer == 4){
+            this.Doolhof = Doolhof4();
+            maxStappen = 120;
             level = nummer;
         }
     }
     
-    private Object[][] Doolhof1(){
-        Object[][] Doolhof1 =  {
-            {X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X},
-            {X,S,M," ",M,V," "," "," "," "," "," ",M," "," "," "," "," "," ",X},
-            {X," ",M," ",M,M,M," ",M,M,M," ",M," ",M,M," ",M," ",X},
-            {X," ",M," "," ",B,M," ",M," "," "," ",M," ",M,V," ",M," ",X},
-            {X," ",M," ",M,M,M," ",M," ",M,M," "," ",M,M,M,M," ",X},
-            {X," "," "," "," "," ",M," ",M," "," "," "," ",M," "," "," "," "," ",X},
-            {X,M,M," ",M," ",M," ",M,M,M,M,M,M," ",M,M,M,M,X},
-            {X," "," "," ",M," ",M," ",M," "," "," "," "," "," "," "," "," "," ",X},
-            {X," ",M," ",M," "," "," ",M,M,M," ",M,M," ",M," ",M," ",X},
-            {X," ",M," ",M,M,M," ",M," "," "," "," ",M," ",M," ",M," ",X},
-            {X," ",M," "," "," ",M," ",M," "," ",M,M,M," ",M,M," "," ",X},
-            {X," ",M," ",M," "," ",M,M," "," ",M,U," "," ",M," "," ",M,X},
-            {X," ",M,M,M,M," ",M,B," "," ",M,M,M,M,M,M," "," ",X},
-            {X," "," ",M," "," "," ",M,M,M,M,M," "," ",M," ",M,M," ",X},
-            {X,M," ",M," ",M," "," "," ",M," "," "," "," "," "," ",M," "," ",X},
-            {X," "," ",M," ",M," ",M," ",M,M,M,M,M,M," ",M," ",M,X},
-            {X," ",M,M," ",M," ",M," "," "," "," "," "," "," "," ",M," "," ",X},
-            {X," "," "," "," ",M," ",M," ",M,M,M," ",M,M,M,M,M," ",X},
-            {X,M,M,M,M,M," "," "," ",M,H," "," "," "," "," "," "," "," ",X},
-            {X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X}
-        }; 
+    private Character[][] Doolhof1() throws IOException{
+        String path = "Doolhof/Doolhof1.txt";
+        BufferedReader d1 = new BufferedReader(new FileReader(path));
+        String line = d1.readLine();
+        Character[][] Doolhof1 = new Character[line.length()][line.length()];
+        int x = 0;
+        
+        Character[] Characters = new Character[line.length()];
+        for (int i = 0; i < line.length(); i++) {
+            Characters[i] = line.charAt(i);
+            System.out.print(line.charAt(i));
+        }
+        Doolhof1[x] = Characters;
+        System.out.println("");
+        while((line = d1.readLine()) != null){
+            x++;
+            Characters = new Character[line.length()];
+            for (int i = 0; i < line.length(); i++) {
+                Characters[i] = line.charAt(i);
+                System.out.print(line.charAt(i));
+            }
+            Doolhof1[x]=Characters;
+            System.out.println("");
+        }
+        d1.close();
         return Doolhof1;
     }
     
-    private Object[][] Doolhof2() {
-        Object[][] Doolhof2 = {{X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X},
-            {X, " ", " ", " ", " ", " ", " ", M, M, M, M, M, M, M, " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", X},
-            {X, " ", M, M, M, M, " ", " ", " ", " ", " ", " ", " ", M, " ", M, M, M, M, " ", M, M, M, M, X},
-            {X, " ", M, M, M, M, " ", M, " ", M, M, M, " ", M, " ", M, " ", " ", M, " ", " ", " ", " ", " ", X},
-            {X, " ", " ", " ", M, M, " ", M, " ", M, M, M, " ", M, " ", M, M, " ", M, " ", M, M, M, M, X},
-            {X, M, M, " ", " ", M, " ", M, " ", " ", M, M, " ", M, " ", " ", M, " ", M, " ", M, U, " ", " ", X},
-            {X, " ", M, M, M, M, " ", M, M, " ", M, M, M, M, " ", M, M, " ", M, " ", M, M, M, " ", X},
-            {X, " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", M, " ", M, " ", M, " ", M, " ", X},
-            {X, " ", M, M, M, M, M, M, M, " ", M, M, M, " ", M, M, M, " ", M, " ", " ", " ", M, " ", X},
-            {X, " ", M, " ", " ", " ", " ", " ", " ", " ", M, " ", " ", " ", " ", " ", " ", " ", M, " ", M, M, M, " ", X},
-            {X, " ", M, M, M, M, M, M, M, " ", M, " ", M, M, M, M, " ", M, M, " ", M, " ", " ", " ", X},
-            {X, S, " ", " ", " ", " ", " ", " ", " ", " ", M, " ", M, " ", " ", M, " ", " ", " ", " ", M, M, M, " ", X},
-            {X, " ", M, M, " ", M, " ", M, M, " ", M, " ", M, " ", M, M, " ", M, M, " ", M, " ", " ", " ", X},
-            {X, " ", M, " ", " ", M, " ", " ", M, M, M, " ", M, " ", M, " ", " ", " ", M, " ", M, " ", M, M, X},
-            {X, " ", M, M, " ", M, M, " ", M, " ", " ", " ", M, " ", M, " ", M, " ", M, " ", M, " ", " ", " ", X},
-            {X, " ", M, " ", " ", " ", M, " ", M, " ", M, M, M, " ", M, " ", M, " ", M, M, M, M, M, " ", X},
-            {X, " ", M, " ", M, " ", " ", " ", M, " ", " ", M, " ", " ", " ", " ", M, " ", M, " ", " ", " ", M, " ", X},
-            {X, " ", M, " ", M, M, M, M, M, M, " ", M, " ", M, " ", M, M, M, M, " ", M, " ", M, " ", X},
-            {X, " ", M, " ", " ", M, " ", " ", " ", M, " ", M, M, M, " ", " ", " ", " ", " ", " ", M, " ", M, " ", X},
-            {X, " ", M, M, M, M, " ", M, " ", M, " ", " ", " ", M, " ", " ", " ", " ", " ", " ", M, " ", M, " ", X},
-            {X, " ", M, " ", " ", " ", " ", M, " ", M, M, M, " ", M, " ", M, M, M, " ", M, M, " ", M, " ", X},
-            {X, " ", " ", " ", M, " ", M, M, " ", " ", " ", M, " ", " ", " ", " ", " ", M, " ", M, M, " ", " ", " ", X},
-            {X, " ", M, M, M, M, M, M, M, M, " ", M, " ", M, M, M, M, M, " ", M, M, M, M, " ", X},
-            {X, " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", M, " ", " ", " ", " ", " ", " ", " ", " ", M, " ", " ", " ", X},
-            {X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X}};
+    private Character[][] Doolhof2() throws IOException{
+        String path = "Doolhof/Doolhof2.txt";
+        BufferedReader d2 = new BufferedReader(new FileReader(path));
+        String line = d2.readLine();
+        Character[][] Doolhof2 = new Character[line.length()][line.length()];
+        int x = 0;
+        
+        Character[] Characters = new Character[line.length()];
+        for (int i = 0; i < line.length(); i++) {
+            Characters[i] = line.charAt(i);
+        }
+        Doolhof2[x] = Characters;
+        
+        while((line = d2.readLine()) != null){
+            x++;
+            Characters = new Character[line.length()];
+            for (int i = 0; i < line.length(); i++) {
+                Characters[i] = line.charAt(i);
+            }
+            Doolhof2[x]=Characters;
+        }
+        d2.close();
         return Doolhof2;
     }
     
-    private Object[][] Doolhof3(){
-        Object[][] Doolhof3 = {
-            {X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X},
-            {X,V," "," "," "," "," "," "," ",M," ",M," "," "," "," ",M," "," ",M," "," "," "," "," "," "," "," "," ",X},
-            {X," ",M,M,M," "," ",M," ",M," "," "," ",M,M," ",M," ",M," ",M," ",M," ",M," "," ",M," ",X},
-            {X," ",M," ",M,M," ",M," ",M," ",M,M," ",M," ",M," ",M," ",M," ",M," ",M," ",M,M," ",M},
-            {X," ",M," ",M," "," ",M," ",M," "," "," "," ",M," "," "," ",M," ",M," ",M," ",M," "," ",M," ",X},
-            {X," ",M," ",M," ",M,M," ",M," ",M," "," ",M,M,M,M,M," ",M,M,M," ",M," ",M," "," ",X},
-            {X," ",M,M,M," "," "," ",M," "," ",M," ",M,M,M," "," "," "," "," "," "," "," "," "," "," ",M," ",X},
-            {X," "," "," "," ",M," ",M," ",M,M," "," "," ",M," "," ",M,M," ",M,M,M,M," ",M,M,M," ",X},
-            {X,M,M,M," "," "," "," "," "," "," "," ",M,M,M," ",M,M," "," "," "," ",M,M," ",M,V,M," ",X},
-            {X," "," "," "," ",M," ",M," ",M,M," "," "," ",M," ",M,M,M," ",M," ",M,M," ",M," ",M," ",X},
-            {X," ",M,M,M,M," "," ",M,H,M,M,M," ",M," ",B,M," "," ",M," ",M,M," ",M," ",M," ",X},
-            {X," ",M," "," "," ",M," ",M," "," "," "," "," ",M,M,M,M,M,M,M," "," "," "," "," "," ",M," ",X},
-            {X," ",M," ",M," ",M," ",M,M,M,M,M,M,M,M,M,M,M,M,M,M,M,M,M,M,M,M,M,X},
-            {X," ",M," ",M," "," "," "," "," "," "," "," ",S,M,M,U," "," ",M," "," "," "," "," "," "," "," "," ",X},
-            {X," "," "," ",M," ",M," ",M,M,M," ",M,M,M,M,M,M," ",M," ",M,M,M,M,M,M,M,M,X},
-            {X," ",M," ",M," "," "," ",M," "," "," ",M," ",M,M,M,M," ",M," "," "," "," "," "," "," "," "," ",X},
-            {X," "," ",M,M,M,M," ",M," ",M," ",M," ",M," ",H,M," ",M,M,M,M,M,M,M,M,M," ",X},
-            {X,M," "," "," "," ",M," "," "," ",M," ",M," ",M," ",M,M," "," ",M,M,M,M,M,M,M,M," ",X},
-            {X," "," ",M,M," ",M,M,M,M,M," ",M," ",M," "," "," ",M," ",M,M,M," "," "," "," "," "," ",X},
-            {X," ",M," "," "," "," "," "," "," "," "," ",M," ",M,M,M," ",M," "," ",M,M," ",M," ",M,M,M,X},
-            {X," "," "," ",M," ",M," ",M," ",M,M," "," "," "," ",M," "," ",M," "," "," "," ",M," "," "," "," ",X},
-            {X,M,M,M," "," ",M," "," "," ",M," "," ",M,M," ",M,M," ",M,M,M,M," ",M," ",M,M,M,X},
-            {X," "," "," "," ",M,M,M," ",M," "," ",M,V,M," "," ",M," "," "," "," "," "," "," "," "," "," "," ",X},
-            {X," ",M,M," "," "," "," "," "," "," ",M," "," ",M,M," ",M," ",M," "," ",M,M,M,M,M,M," ",X},
-            {X," "," ",M,M,M,M,M,M,M,M," "," ",M,M," "," ",M," ",M," ",M," "," "," "," "," ",M," ",X},
-            {X,M," "," "," "," "," "," ",M," ",M," "," "," ",M," ",M,M," ",M," ",M," ",V,H,V," ",M," ",X},
-            {X," "," ",M," "," ",M," ",M," ",M," ",M," ",M," ",M," "," ",M," ",M," "," "," "," "," ",M," ",X},
-            {X,M,M,M,M,M,M," ",M,M,M," ",M," ",M," ",M,M,M,M," ",M,M,M,M,M,M," "," ",X},
-            {X,B," "," "," "," "," "," "," "," "," "," ",M," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ",B,X},
-            {X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X,X}
-                }; 
+    private Character[][] Doolhof3() throws IOException{
+        String path = "Doolhof/Doolhof3.txt";
+        BufferedReader d3 = new BufferedReader(new FileReader(path));
+        String line = d3.readLine();
+        Character[][] Doolhof3 = new Character[line.length()][line.length()];
+        int x = 0;
         
+        Character[] Characters = new Character[line.length()];
+        for (int i = 0; i < line.length(); i++) {
+            Characters[i] = line.charAt(i);
+        }
+        Doolhof3[x] = Characters;
+        
+        while((line = d3.readLine()) != null){
+            x++;
+            Characters = new Character[line.length()];
+            for (int i = 0; i < line.length(); i++) {
+                Characters[i] = line.charAt(i);
+            }
+            Doolhof3[x]=Characters;
+        }
+        d3.close();
+        return Doolhof3;
+    }
+    
+    private Character[][] Doolhof4() throws IOException{
+        String path = "Doolhof/Doolhof4.txt";
+        BufferedReader d3 = new BufferedReader(new FileReader(path));
+        String line = d3.readLine();
+        Character[][] Doolhof3 = new Character[line.length()][line.length()];
+        int x = 0;
+        
+        Character[] Characters = new Character[line.length()];
+        for (int i = 0; i < line.length(); i++) {
+            Characters[i] = line.charAt(i);
+        }
+        Doolhof3[x] = Characters;
+        
+        while((line = d3.readLine()) != null){
+            x++;
+            Characters = new Character[line.length()];
+            for (int i = 0; i < line.length(); i++) {
+                Characters[i] = line.charAt(i);
+            }
+            Doolhof3[x]=Characters;
+        }
+        d3.close();
         return Doolhof3;
     }
     

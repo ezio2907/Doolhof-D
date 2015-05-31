@@ -16,15 +16,27 @@ import project.Uitgang;
  *
  * @author Admin
  */
-class Voorwerpen{
+public abstract class Voorwerpen{
     public boolean loopbaar = true;
     public boolean vernietigbaar = false;
-    public ArrayList<JLabel> labels;
+    public Doolhof Dh;
     private Voorwerpen Valsspeler;
     private Voorwerpen Uitgang;
     private Voorwerpen Muur;
     private Voorwerpen Helper;
     private Voorwerpen Bazooka;
+    private int X;
+    private int Y;
+    
+    public void setP(int X, int Y){
+        this.X = X;
+        this.Y = Y;
+    }
+    
+    
+    public void setDH(Doolhof Dh){
+        this.Dh = Dh;
+    }
     
     public void pickUp(){
         

@@ -12,6 +12,7 @@ public class Muur extends Voorwerpen{
     
     Muur(boolean verwoestbaar){
         this.vernietigbaar = verwoestbaar;
+        this.loopbaar = false;
     }
     
     @Override
