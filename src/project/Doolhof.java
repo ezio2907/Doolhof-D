@@ -82,19 +82,15 @@ public class Doolhof {
         Character[] Characters = new Character[line.length()];
         for (int i = 0; i < line.length(); i++) {
             Characters[i] = line.charAt(i);
-            System.out.print(line.charAt(i));
         }
         Doolhof1[x] = Characters;
-        System.out.println("");
         while((line = d1.readLine()) != null){
             x++;
             Characters = new Character[line.length()];
             for (int i = 0; i < line.length(); i++) {
                 Characters[i] = line.charAt(i);
-                System.out.print(line.charAt(i));
             }
             Doolhof1[x]=Characters;
-            System.out.println("");
         }
         d1.close();
         return Doolhof1;

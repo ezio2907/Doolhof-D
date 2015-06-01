@@ -1,5 +1,5 @@
 XXXXXXXXXXXXXXXXXXXX
-X M MV      M      X
+XSM MV      M      X
 X M MMM MMM M MM M X
 X M  BM M   M MV M X
 X M MMM M MM  MMMM X
@@ -16,5 +16,5 @@ XM M M   M      M  X
 X  M M M MMMMMM M MX
 X MM M M        M  X
 X    M M MMM MMMMM X
-XMMMMM   MH       SX
+XMMMMM   MH        X
 XXXXXXXXXXXXXXXXXXXX

@@ -6,7 +6,6 @@ package project;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -42,16 +41,13 @@ public class FrameDoolhof {
         labels = new ArrayList<>();
         objecten = new ArrayList<>();
         frame = new GamePanel();
+        frame.setLayout(new BorderLayout());
         jPanel1 = new JPanel();
         Dh = new Doolhof();
         Dh.setDoolhof(level);
         Doolhof = Dh.getDoolhof();
         
-        LevelCreater(level);
-    }
-    
-    
-    public void LevelCreater(int level) throws IOException{  
+        
         JPanel knopenPanel = new JPanel(new GridLayout(1,6));
         ActionListener opnieuwKnop = new OpnieuwKnop();
         opnieuwButton.addActionListener(opnieuwKnop);
@@ -65,16 +61,23 @@ public class FrameDoolhof {
         knopenPanel.add(startButton);
         knopenPanel.add(stappenLabel);
         
-        frame.setLayout(new BorderLayout());
-        int FRAME_WIDTH = 18*Doolhof.length;
-        int FRAME_HEIGHT = 18*Doolhof.length + 30;
+        int FRAME_WIDTH = 15*Doolhof.length;
+        int FRAME_HEIGHT = 15*Doolhof.length + 30;
         frame.setVisible(false);
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setTitle("");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(knopenPanel, BorderLayout.NORTH);
-                
-        jPanel1.setLayout(new GridLayout(Doolhof.length, Doolhof.length));
+        
+        LevelCreater(level);
+    }
+    
+    
+    public void LevelCreater(int level) throws IOException{
+        int FRAME_WIDTH = 18*Doolhof.length;
+        int FRAME_HEIGHT = 18*Doolhof.length + 30;
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        
         labels.clear();
         jPanel1.removeAll();
         Dh.setDoolhof(level);
@@ -82,6 +85,7 @@ public class FrameDoolhof {
         S = Dh.getSpeler();
         Dh.setStappen(0);
         stappenLabel.setText("Stappen: " + (Dh.getMaxStappen()));
+        jPanel1.setLayout(new GridLayout(Doolhof.length, Doolhof.length));
                 
         int positie = 0;
         for (int y = 0; y < Doolhof.length; y++) {
@@ -145,13 +149,6 @@ public class FrameDoolhof {
         jPanel1.setVisible(false);
         pauze = true;
         startButton.setFocusable(pauze);
-        for(JLabel l : labels){
-            System.out.print(l.getText());
-        }
-        System.out.println("");
-        for(Voorwerpen V : objecten){
-            System.out.print(V.teken());
-        }
     }
     
     private void beweegSpeler(int nX, int nY){
@@ -188,7 +185,6 @@ public class FrameDoolhof {
         if(objecten.get(positie).loopbaar){
             return true;
         } else {
-            System.out.println(objecten.get(positie).teken());
             return false;  
         }
     }
@@ -261,7 +257,7 @@ public class FrameDoolhof {
         @Override
         public void actionPerformed(ActionEvent event){
             pauze = true;
-            jPanel1.setVisible(false);
+            jPanel1.setVisible(false); 
             try {
                 LevelCreater(Dh.getLevel());
             } catch (IOException ex) {
