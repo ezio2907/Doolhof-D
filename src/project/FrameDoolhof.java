@@ -107,6 +107,7 @@ public class FrameDoolhof {
                 } else if(Doolhof[y][x] == 'B'){
                     Bazooka B = new Bazooka();
                     B.setP(x, y);
+                    objecten.add(B);
                     labels.get(positie).setText(B.teken());
                 } else if(Doolhof[y][x] == 'U'){
                     Uitgang U = new Uitgang();
@@ -144,6 +145,13 @@ public class FrameDoolhof {
         jPanel1.setVisible(false);
         pauze = true;
         startButton.setFocusable(pauze);
+        for(JLabel l : labels){
+            System.out.print(l.getText());
+        }
+        System.out.println("");
+        for(Voorwerpen V : objecten){
+            System.out.print(V.teken());
+        }
     }
     
     private void beweegSpeler(int nX, int nY){
