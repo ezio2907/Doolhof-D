@@ -11,15 +11,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.*;
+import javax.swing.*;    
 
 public class ProjectDDoolhof {
 
     public String[][] Doolhof;
 
     public static void main(String[] args) throws IOException {
-        FrameDoolhof FD = new FrameDoolhof();
-        FD.opbouw(1);
+        startFrame start = new startFrame();
+        start.FrameMaken();
     }
     
     public static void beginLevel(int level) throws IOException{

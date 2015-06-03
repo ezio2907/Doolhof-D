@@ -17,7 +17,8 @@ import javax.swing.JLabel;
 public class Speler{
     private int X;
     private int Y;
-    private boolean bazooka = false;
+    private boolean bazooka = true;
+    private String direction = "E";
     
     
     public int getX(){
@@ -30,6 +31,23 @@ public class Speler{
         this.X = X;
         this.Y = Y;
     }
+    
+    public void setBazooka(boolean B){
+        bazooka = B;
+    }
+    
+    public Boolean getBazooka(){
+        return bazooka;
+    }
+    
+    public void setDirection(String D){
+        direction = D;
+    }
+        
+    public String getDirection(){
+        return direction;
+    }
+    
     public String teken() {
         return "S";
     }

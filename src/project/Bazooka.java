@@ -19,4 +19,12 @@ public class Bazooka extends Voorwerpen{
     public void pickUp(){
         
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Bazooka)) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -9,6 +9,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class startFrame {
 
@@ -46,7 +49,11 @@ public class startFrame {
                 error.setVisible(true);
             } else {
                 frame.dispose();
-                ProjectDDoolhof.beginLevel(LVL);
+                try {
+                    ProjectDDoolhof.beginLevel(LVL);
+                } catch (IOException ex) {
+                    Logger.getLogger(startFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }

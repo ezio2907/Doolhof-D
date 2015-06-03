@@ -13,5 +13,10 @@ public class Pad extends Voorwerpen{
     public String teken(){
         return " ";
     }
+    @Override
+    public String toString(){
+        String terug = "hier is een pad";
+        return terug;
+    }
     
 }
