@@ -38,8 +38,8 @@ public abstract class Voorwerpen{
         this.Dh = Dh;
     }
     
-    public void pickUp(){
-        
+    public int pickUp(){
+        return 0;
     }
     
     public String teken(){

@@ -15,8 +15,8 @@ public class Uitgang  extends Voorwerpen{
         return "U";
     }
     
-    
-    public boolean pickU(){
-        return true;
+    @Override
+    public int pickUp(){
+        return 1;
     }
 }

@@ -78,6 +78,7 @@ public class FrameDoolhof {
         int FRAME_HEIGHT = 18 * Doolhof.length + 30;
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 
+        objecten = new ArrayList<>();;
         labels.clear();
         jPanel1.removeAll();
         Dh.setDoolhof(level);
@@ -156,15 +157,31 @@ public class FrameDoolhof {
         int Y = S.getY();
         int positie = Y * Doolhof.length + X;
         int nPositie = nY * Doolhof.length + nX;
-
+        
+        if (objecten.get(nPositie).pickUp() == 1) { //Uitgang
+            pauzeButton.doClick();
+            Dh.levelUp();
+            try {
+                LevelCreater(Dh.getLevel());
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+            opnieuwButton.doClick();
+        } 
+        
+        labels.get(positie).setText(" ");
+        
         labels.get(nPositie).setText("S");
 
-        labels.get(positie).setText(" ");
-
-        Dh.setStappen(Dh.getStappen() + 1);
+        if(Dh.setStappen(Dh.getStappen() + 1)){
+            stappenLabel.setText(" GAME OVER!");
+            pauze = true;
+        } else {
+            stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
+        }
     }
 
-    public boolean canMove(String direction) {
+    public boolean canMove(String direction){
         int x = S.getX();
         int y = S.getY();
         switch (direction) {
@@ -182,15 +199,13 @@ public class FrameDoolhof {
                 break;
         }
         int positie = y * Doolhof.length + x;
-        if (objecten.get(positie).loopbaar) {
-            Bazooka b = new Bazooka();
-            if (objecten.get(positie).equals(b)) {
-                S.setBazooka(true);
-            }
-            return true;
-        } else {
-            return false;
+        
+        if (objecten.get(positie).pickUp() == 2){ //Valsspeler
+            Dh.setMaxStappen(Integer.parseInt(labels.get(positie).getText()) + Dh.getMaxStappen());
+        } else if (objecten.get(positie).pickUp() == 3){ //Bazooka
+            S.setBazooka(true);
         }
+        return objecten.get(positie).loopbaar;
     }
 
     public class GamePanel extends JFrame {
@@ -208,7 +223,6 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 beweegSpeler(X - 1, Y);
                                 S.setP(X - 1, Y);
-                                stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
                             }
                         }
                         if (e.getKeyCode() == 38) { //Omhoog
@@ -218,7 +232,6 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 beweegSpeler(X, Y - 1);
                                 S.setP(X, Y - 1);
-                                stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
                             }
                         }
                         if (e.getKeyCode() == 39) { //Rechts
@@ -228,7 +241,6 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 beweegSpeler(X + 1, Y);
                                 S.setP(X + 1, Y);
-                                stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
                             }
                         }
                         if (e.getKeyCode() == 40) { //Omlaag
@@ -238,7 +250,6 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 beweegSpeler(X, Y + 1);
                                 S.setP(X, Y + 1);
-                                stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
                             }
                         }
                         if (e.getKeyCode() == 32) { //Spatie

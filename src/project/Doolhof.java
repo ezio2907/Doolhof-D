@@ -46,10 +46,13 @@ public class Doolhof {
     public boolean setStappen(int aantalStappen){
         this.aantalStappen = aantalStappen;
         if (aantalStappen >= maxStappen){
-            System.out.println("GAME OVER!!");
             return true;
         }
         return false;
+    }
+    
+    public void setMaxStappen(int maxStappen){
+        this.maxStappen = maxStappen;
     }
     
     public void setDoolhof(int nummer) throws IOException{
@@ -63,11 +66,7 @@ public class Doolhof {
             level = nummer;
         }else if(nummer == 3){
             this.Doolhof = Doolhof3();
-            maxStappen = 120;
-            level = nummer;
-        }else if(nummer == 4){
-            this.Doolhof = Doolhof4();
-            maxStappen = 120;
+            maxStappen = 150;
             level = nummer;
         }
     }

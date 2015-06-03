@@ -16,8 +16,8 @@ public class Bazooka extends Voorwerpen{
     }
     
     @Override
-    public void pickUp(){
-        
+    public int pickUp(){
+        return 3;
     }
     
     @Override

@@ -1,7 +1,7 @@
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XV       M M    M  M         X
-X MMM  M M   MM M M M M M  M X
-X M MM M M MM M M M M M M MM M
+XV       M M    M            X
+X MMM  M M   MM M MMM M M  M X
+X M MM M M MM M M M M M M MM X
 X M M  M M    M   M M M M  M X
 X M M MM M M  MMMMM MMM M M  X
 X MMM   M  M MMM           M X
