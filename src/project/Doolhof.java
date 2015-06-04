@@ -145,31 +145,6 @@ public class Doolhof {
         return Doolhof3;
     }
     
-    private Character[][] Doolhof4() throws IOException{
-        String path = "Doolhof/Doolhof4.txt";
-        BufferedReader d3 = new BufferedReader(new FileReader(path));
-        String line = d3.readLine();
-        Character[][] Doolhof3 = new Character[line.length()][line.length()];
-        int x = 0;
-        
-        Character[] Characters = new Character[line.length()];
-        for (int i = 0; i < line.length(); i++) {
-            Characters[i] = line.charAt(i);
-        }
-        Doolhof3[x] = Characters;
-        
-        while((line = d3.readLine()) != null){
-            x++;
-            Characters = new Character[line.length()];
-            for (int i = 0; i < line.length(); i++) {
-                Characters[i] = line.charAt(i);
-            }
-            Doolhof3[x]=Characters;
-        }
-        d3.close();
-        return Doolhof3;
-    }
-    
     @Override
     public String toString(){
         String waarde = "";

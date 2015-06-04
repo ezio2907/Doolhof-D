@@ -4,12 +4,6 @@
  */
 package project;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 /**
  *
  * @author Admin
@@ -18,7 +12,7 @@ public class Speler{
     private int X;
     private int Y;
     private boolean bazooka = true;
-    private String direction = "E";
+    private Character direction = 'E';
     
     
     public int getX(){
@@ -40,11 +34,11 @@ public class Speler{
         return bazooka;
     }
     
-    public void setDirection(String D){
+    public void setDirection(Character D){
         direction = D;
     }
         
-    public String getDirection(){
+    public Character getDirection(){
         return direction;
     }
     
