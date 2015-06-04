@@ -11,8 +11,9 @@ package project;
 public class Bazooka extends Voorwerpen{
     
     @Override
-    public String teken(){
-        return "B";
+    public Vierkant teken(){
+        Vierkant plaatje = new Vierkant(this.getX() + 1, this.getY() + 1, "wit");
+        return plaatje;
     }
     
     @Override
@@ -26,5 +27,10 @@ public class Bazooka extends Voorwerpen{
             return false;
         }
         return true;
+    }
+    
+    @Override
+    public String toString(){
+        return "B";
     }
 }

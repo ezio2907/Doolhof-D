@@ -17,12 +17,18 @@ public class Helper extends Voorwerpen{
     public ArrayList<JLabel> labels;
     
     @Override
-    public String teken(){
-        return "H";
+    public Vierkant teken(){
+        Vierkant plaatje = new Vierkant(this.getX() + 1, this.getY() + 1, "blauw");
+        return plaatje;
     }
     
     public void pickUp(ArrayList<JLabel> labels){
         this.labels = labels;
+    }
+    
+    @Override
+    public String toString(){
+        return "H";
     }
     
 //    public ??? vindWeg(){

@@ -16,12 +16,9 @@ public class Muur extends Voorwerpen {
     }
 
     @Override
-    public String teken() {
-        if (vernietigbaar) {
-            return "M";
-        } else {
-            return "X";
-        }
+    public Vierkant teken(){
+        Vierkant plaatje = new Vierkant(this.getX() + 1, this.getY() + 1, "grijs");
+        return plaatje;
     }
 
     @Override
@@ -39,8 +36,9 @@ public class Muur extends Voorwerpen {
     public boolean getVernietigbaar() {
         return vernietigbaar;
     }
-
-    public String toString() {
-        return "dit is een muur";
+    
+    @Override
+    public String toString(){
+        return "M";
     }
 }

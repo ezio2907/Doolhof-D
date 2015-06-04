@@ -25,9 +25,8 @@ import javax.swing.JPanel;
  */
 public class FrameDoolhof {
 
-    public Character[][] Doolhof;
+    public Voorwerpen[][] Doolhof;
     public ArrayList<JLabel> labels;
-    public ArrayList<Voorwerpen> objecten = new ArrayList<>();
     public GamePanel frame;
     public JPanel jPanel1;
     public Speler S;
@@ -77,8 +76,7 @@ public class FrameDoolhof {
         int FRAME_WIDTH = 18 * Doolhof.length;
         int FRAME_HEIGHT = 18 * Doolhof.length + 30;
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-
-        objecten = new ArrayList<>();;
+        
         labels.clear();
         jPanel1.removeAll();
         Dh.setDoolhof(level);
@@ -93,58 +91,13 @@ public class FrameDoolhof {
             for (int x = 0; x < Doolhof.length; x++) {
                 JLabel label = new JLabel();
                 labels.add(label);
-                if (Doolhof[y][x] == 'X') {
-                    Muur X = new Muur(false);
-                    X.setP(x, y);
-                    objecten.add(X);
-                    labels.get(positie).setText(X.teken());
-                } else if (Doolhof[y][x] == 'M') {
-                    Muur M = new Muur(true);
-                    M.setP(x, y);
-                    objecten.add(M);
-                    labels.get(positie).setText(M.teken());
-                } else if (Doolhof[y][x] == 'S') {
-                    Pad P = new Pad();
-                    P.setP(x, y);
-                    objecten.add(P);
-                    Dh.getSpeler().setP(x, y);
-                    labels.get(positie).setText(Dh.getSpeler().teken());
-                } else if (Doolhof[y][x] == 'B') {
-                    Bazooka B = new Bazooka();
-                    B.setP(x, y);
-                    objecten.add(B);
-                    labels.get(positie).setText(B.teken());
-                } else if (Doolhof[y][x] == 'U') {
-                    Uitgang U = new Uitgang();
-                    U.setP(x, y);
-                    objecten.add(U);
-                    labels.get(positie).setText(U.teken());
-                } else if (Doolhof[y][x] == 'V') {
-                    Valsspeler V = new Valsspeler();
-                    V.setP(x, y);
-                    objecten.add(V);
-                    labels.get(positie).setText(V.teken());
-                } else if (Doolhof[y][x] == 'H') {
-                    Helper H = new Helper();
-                    H.setP(x, y);
-                    objecten.add(H);
-                    labels.get(positie).setText(H.teken());
-                } else if (Doolhof[y][x] == ' ') {
-                    Pad P = new Pad();
-                    P.setP(x, y);
-                    labels.get(positie).setText(P.teken());
-                    objecten.add(P);
-                } else {
-                    Pad P = new Pad();
-                    P.setP(x, y);
-                    labels.get(positie).setText(P.teken());
-                    objecten.add(P);
-                }
+                labels.get(positie).setText(Doolhof[y][x].toString());
                 jPanel1.add(label);
                 frame.add(jPanel1);
                 positie++;
             }
         }
+        labels.get(Dh.getSpeler().getY() * Doolhof.length + Dh.getSpeler().getX()).setText(Dh.getSpeler().toString());
         frame.setFocusable(true);
         frame.setVisible(true);
         jPanel1.setVisible(false);
@@ -188,9 +141,8 @@ public class FrameDoolhof {
                 y = S.getY() + 1;
                 break;
         }
-        int positie = y * Doolhof.length + x;
         
-        if (objecten.get(positie).pickUp() == 1) { //Uitgang
+        if (Doolhof[y][x].pickUp() == 1) { //Uitgang
             pauzeButton.doClick();
             Dh.levelUp();
             try {
@@ -201,22 +153,22 @@ public class FrameDoolhof {
             }
             opnieuwButton.doClick();
             return false;
-        } else if (objecten.get(positie).pickUp() == 2){ //Valsspeler
-            Dh.setMaxStappen(Integer.parseInt(labels.get(positie).getText()) + Dh.getMaxStappen());
+        } else if (Doolhof[y][x].pickUp() == 2){ //Valsspeler
+            Dh.setMaxStappen(Dh.getMaxStappen());
             
             Pad P = new Pad();
             P.setP(x, y);
-            objecten.set(positie, P);
-            labels.get(positie).setText(P.teken());
-        } else if (objecten.get(positie).pickUp() == 3){ //Bazooka
+            Doolhof[y][x] = P;
+            Doolhof[y][x].teken();
+        } else if (Doolhof[y][x].pickUp() == 3){ //Bazooka
             S.setBazooka(true);
             
             Pad P = new Pad();
             P.setP(x, y);
-            objecten.set(positie, P);
-            labels.get(positie).setText(P.teken());
+            Doolhof[y][x] = P;
+            Doolhof[y][x].teken();
         }
-        return objecten.get(positie).loopbaar;
+        return Doolhof[y][x].loopbaar;
     }
     
     public class GamePanel extends JFrame {
@@ -263,21 +215,21 @@ public class FrameDoolhof {
                                 S.setP(X, Y + 1);
                             }
                         }
-                        if (e.getKeyCode() == 32) { //Spatie
-                            if (S.getBazooka()) {
-                                S.setBazooka(false);
-//                                vuur(S.getDirection());
-                                if (S.getDirection() == 'N') {
-                                    vernietigN();
-                                }else if (S.getDirection() == 'E'){
-                                    vernietigE();
-                                }else if (S.getDirection() == 'S'){
-                                    vernietigS();
-                                }else{
-                                    vernietigW();
-                                }
-                            }
-                        }
+//                        if (e.getKeyCode() == 32) { //Spatie
+//                            if (S.getBazooka()) {
+//                                S.setBazooka(false);
+////                                vuur(S.getDirection());
+//                                if (S.getDirection() == 'N') {
+//                                    vernietigN();
+//                                }else if (S.getDirection() == 'E'){
+//                                    vernietigE();
+//                                }else if (S.getDirection() == 'S'){
+//                                    vernietigS();
+//                                }else{
+//                                    vernietigW();
+//                                }
+//                            }
+//                        }
                     }
                 }
 
@@ -344,97 +296,97 @@ public class FrameDoolhof {
 //            }
 //        }
 //    }
-    
-    public void vernietigN() {
-        Muur m = new Muur(true);
-        Muur x = new Muur(false);
-        int KogelX = S.getX();
-        int KogelY = S.getY();
-        int positie = Doolhof.length * KogelY + KogelX;
-        outerloop:
-        while (KogelY >= 0) {
-            if (objecten.get(positie).equals(m)) {
-                if (objecten.get(positie).vernietigbaar) {
-                    Pad P = new Pad();
-                    P.setP(objecten.get(positie).getX(), objecten.get(positie).getY());
-                    objecten.set(positie, P);
-                    labels.get(positie).setText(P.teken());
-                }
-                break outerloop;
-            }
-            KogelY--;
-            positie = Doolhof.length * KogelY + KogelX;
-        }
-    }
-
-    public void vernietigE() {
-        Muur m = new Muur(true);
-        Muur x = new Muur(false);
-        int KogelX = S.getX();
-        int KogelY = S.getY();
-        int positie = Doolhof.length * KogelY + KogelX;
-        outerloop:
-        while (KogelX <= Doolhof.length) {
-            if (objecten.get(positie).equals(m)) {
-                if (objecten.get(positie).vernietigbaar) {
-                    Pad P = new Pad();
-                    P.setP(objecten.get(positie).getX(), objecten.get(positie).getY());
-                    objecten.set(positie, P);
-                    labels.get(positie).setText(P.teken());
-                }
-                break outerloop;
-            }
-            System.out.println(objecten.get(positie).toString());
-            KogelX++;
-            positie = Doolhof.length * KogelY + KogelX;
-        }
-    }
-
-    public void vernietigS() {
-        Muur m = new Muur(true);
-        Muur x = new Muur(false);
-        int KogelX = S.getX();
-        int KogelY = S.getY();
-        int positie = Doolhof.length * KogelY + KogelX;
-        outerloop:
-        while (KogelY <= Doolhof.length) {
-            if (objecten.get(positie).equals(m)) {
-                if (objecten.get(positie).vernietigbaar) {
-                    Pad P = new Pad();
-                    P.setP(objecten.get(positie).getX(), objecten.get(positie).getY());
-                    objecten.set(positie, P);
-                    labels.get(positie).setText(P.teken());
-                }
-                break outerloop;
-            }
-            System.out.println(objecten.get(positie).toString());
-            KogelY++;
-            positie = Doolhof.length * KogelY + KogelX;
-        }
-    }
-
-    public void vernietigW() {
-        Muur m = new Muur(true);
-        Muur x = new Muur(false);
-        int KogelX = S.getX();
-        int KogelY = S.getY();
-        int positie = Doolhof.length * KogelY + KogelX;
-        outerloop:
-        while (KogelX >= 0) {
-            if (objecten.get(positie).equals(m)) {
-                if (objecten.get(positie).vernietigbaar) {
-                    Pad P = new Pad();
-                    P.setP(objecten.get(positie).getX(), objecten.get(positie).getY());
-                    objecten.set(positie, P);
-                    labels.get(positie).setText(P.teken());
-                } 
-                break outerloop;
-            }
-            System.out.println(objecten.get(positie).toString());
-            KogelX--;
-            positie = Doolhof.length * KogelY + KogelX;
-        }
-    }
+//    
+//    public void vernietigN() {
+//        Muur m = new Muur(true);
+//        Muur x = new Muur(false);
+//        int KogelX = S.getX();
+//        int KogelY = S.getY();
+//        int positie = Doolhof.length * KogelY + KogelX;
+//        outerloop:
+//        while (KogelY >= 0) {
+//            if (objecten.get(positie).equals(m)) {
+//                if (objecten.get(positie).vernietigbaar) {
+//                    Pad P = new Pad();
+//                    P.setP(objecten.get(positie).getX(), objecten.get(positie).getY());
+//                    objecten.set(positie, P);
+//                    labels.get(positie).setText(P.teken());
+//                }
+//                break outerloop;
+//            }
+//            KogelY--;
+//            positie = Doolhof.length * KogelY + KogelX;
+//        }
+//    }
+//
+//    public void vernietigE() {
+//        Muur m = new Muur(true);
+//        Muur x = new Muur(false);
+//        int KogelX = S.getX();
+//        int KogelY = S.getY();
+//        int positie = Doolhof.length * KogelY + KogelX;
+//        outerloop:
+//        while (KogelX <= Doolhof.length) {
+//            if (objecten.get(positie).equals(m)) {
+//                if (objecten.get(positie).vernietigbaar) {
+//                    Pad P = new Pad();
+//                    P.setP(objecten.get(positie).getX(), objecten.get(positie).getY());
+//                    objecten.set(positie, P);
+//                    labels.get(positie).setText(P.teken());
+//                }
+//                break outerloop;
+//            }
+//            System.out.println(objecten.get(positie).toString());
+//            KogelX++;
+//            positie = Doolhof.length * KogelY + KogelX;
+//        }
+//    }
+//
+//    public void vernietigS() {
+//        Muur m = new Muur(true);
+//        Muur x = new Muur(false);
+//        int KogelX = S.getX();
+//        int KogelY = S.getY();
+//        int positie = Doolhof.length * KogelY + KogelX;
+//        outerloop:
+//        while (KogelY <= Doolhof.length) {
+//            if (objecten.get(positie).equals(m)) {
+//                if (objecten.get(positie).vernietigbaar) {
+//                    Pad P = new Pad();
+//                    P.setP(objecten.get(positie).getX(), objecten.get(positie).getY());
+//                    objecten.set(positie, P);
+//                    labels.get(positie).setText(P.teken());
+//                }
+//                break outerloop;
+//            }
+//            System.out.println(objecten.get(positie).toString());
+//            KogelY++;
+//            positie = Doolhof.length * KogelY + KogelX;
+//        }
+//    }
+//
+//    public void vernietigW() {
+//        Muur m = new Muur(true);
+//        Muur x = new Muur(false);
+//        int KogelX = S.getX();
+//        int KogelY = S.getY();
+//        int positie = Doolhof.length * KogelY + KogelX;
+//        outerloop:
+//        while (KogelX >= 0) {
+//            if (objecten.get(positie).equals(m)) {
+//                if (objecten.get(positie).vernietigbaar) {
+//                    Pad P = new Pad();
+//                    P.setP(objecten.get(positie).getX(), objecten.get(positie).getY());
+//                    objecten.set(positie, P);
+//                    labels.get(positie).setText(P.teken());
+//                } 
+//                break outerloop;
+//            }
+//            System.out.println(objecten.get(positie).toString());
+//            KogelX--;
+//            positie = Doolhof.length * KogelY + KogelX;
+//        }
+//    }
 
     class OpnieuwKnop implements ActionListener {
 

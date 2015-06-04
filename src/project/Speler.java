@@ -42,7 +42,7 @@ public class Speler{
         return direction;
     }
     
-    public String teken() {
+    public String toString() {
         return "S";
     }
     

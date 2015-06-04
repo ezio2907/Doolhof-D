@@ -11,12 +11,18 @@ package project;
 public class Uitgang  extends Voorwerpen{
     
     @Override
-    public String teken(){
-        return "U";
+    public Vierkant teken(){
+        Vierkant plaatje = new Vierkant(this.getX() + 1, this.getY() + 1, "zwaart");
+        return plaatje;
     }
     
     @Override
     public int pickUp(){
         return 1;
+    }
+    
+    @Override
+    public String toString(){
+        return "U";
     }
 }

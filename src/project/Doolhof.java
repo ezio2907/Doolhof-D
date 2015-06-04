@@ -17,13 +17,13 @@ import java.io.IOException;
  * @author Admin
  */
 public class Doolhof {
-    private Character[][] Doolhof;
+    private Voorwerpen[][] Doolhof;
     private int maxStappen;
     private Speler S = new Speler();
     private int aantalStappen = 0;
     private int level = 0;
         
-    public Character[][] getDoolhof(){
+    public Voorwerpen[][] getDoolhof(){
         return Doolhof;
     }
     public int getStappen(){
@@ -57,92 +57,87 @@ public class Doolhof {
     
     public void setDoolhof(int nummer) throws IOException{
         if(nummer == 1){
-            this.Doolhof = Doolhof1();
+            this.Doolhof = DoolhofMaak(1);
             maxStappen = 80;
             level = nummer;
         }else if(nummer == 2){
-            this.Doolhof = Doolhof2();
+            this.Doolhof = DoolhofMaak(2);
             maxStappen = 90;
             level = nummer;
         }else if(nummer == 3){
-            this.Doolhof = Doolhof3();
+            this.Doolhof = DoolhofMaak(3);
             maxStappen = 150;
             level = nummer;
+        }else{
+            this.Doolhof = DoolhofMaak(1);
+            maxStappen = 80;
+            level = 1;
         }
     }
     
-    private Character[][] Doolhof1() throws IOException{
-        String path = "Doolhof/Doolhof1.txt";
+    private Voorwerpen[][] DoolhofMaak(int level) throws IOException{
+        String path = "Doolhof/Doolhof"+level+".txt";
         BufferedReader d1 = new BufferedReader(new FileReader(path));
         String line = d1.readLine();
-        Character[][] Doolhof1 = new Character[line.length()][line.length()];
-        int x = 0;
+        Voorwerpen[][] Doolhof1 = new Voorwerpen[line.length()][line.length()];
+        int y = 0;
         
-        Character[] Characters = new Character[line.length()];
+        Voorwerpen[] spelObjecten = new Voorwerpen[line.length()];
         for (int i = 0; i < line.length(); i++) {
-            Characters[i] = line.charAt(i);
+            spelObjecten[i] = maakVoorwerp(y, i, line.charAt(i));
         }
-        Doolhof1[x] = Characters;
+        Doolhof1[y] = spelObjecten;
         while((line = d1.readLine()) != null){
-            x++;
-            Characters = new Character[line.length()];
+            y++;
+            spelObjecten = new Voorwerpen[line.length()];
             for (int i = 0; i < line.length(); i++) {
-                Characters[i] = line.charAt(i);
+                spelObjecten[i] = maakVoorwerp(y, i, line.charAt(i));
             }
-            Doolhof1[x]=Characters;
+            Doolhof1[y]=spelObjecten;
         }
         d1.close();
         return Doolhof1;
     }
     
-    private Character[][] Doolhof2() throws IOException{
-        String path = "Doolhof/Doolhof2.txt";
-        BufferedReader d2 = new BufferedReader(new FileReader(path));
-        String line = d2.readLine();
-        Character[][] Doolhof2 = new Character[line.length()][line.length()];
-        int x = 0;
-        
-        Character[] Characters = new Character[line.length()];
-        for (int i = 0; i < line.length(); i++) {
-            Characters[i] = line.charAt(i);
+    private Voorwerpen maakVoorwerp(int y, int x, Character voorwerp){
+        if (voorwerp == 'X') {
+            Muur X = new Muur(false);
+            X.setP(x, y);
+            return X;
+        } else if (voorwerp == 'M') {
+            Muur M = new Muur(true);
+            M.setP(x, y);
+            return M;
+        } else if (voorwerp == 'S') {
+            S.setP(x, y);
+            Pad P = new Pad();
+            P.setP(x, y);
+            return P;
+        } else if (voorwerp == 'B') {
+            Bazooka B = new Bazooka();
+            B.setP(x, y);
+            return B;
+        } else if (voorwerp == 'U') {
+            Uitgang U = new Uitgang();
+            U.setP(x, y);
+            return U;
+        } else if (voorwerp == 'V') {
+            Valsspeler V = new Valsspeler();
+            V.setP(x, y);
+            return V;
+        } else if (voorwerp == 'H') {
+            Helper H = new Helper();
+            H.setP(x, y);
+            return H;
+        } else if (voorwerp == ' ') {
+            Pad P = new Pad();
+            P.setP(x, y);
+            return P;
+        } else {
+            Pad P = new Pad();
+            P.setP(x, y);
+            return P;
         }
-        Doolhof2[x] = Characters;
-        
-        while((line = d2.readLine()) != null){
-            x++;
-            Characters = new Character[line.length()];
-            for (int i = 0; i < line.length(); i++) {
-                Characters[i] = line.charAt(i);
-            }
-            Doolhof2[x]=Characters;
-        }
-        d2.close();
-        return Doolhof2;
-    }
-    
-    private Character[][] Doolhof3() throws IOException{
-        String path = "Doolhof/Doolhof3.txt";
-        BufferedReader d3 = new BufferedReader(new FileReader(path));
-        String line = d3.readLine();
-        Character[][] Doolhof3 = new Character[line.length()][line.length()];
-        int x = 0;
-        
-        Character[] Characters = new Character[line.length()];
-        for (int i = 0; i < line.length(); i++) {
-            Characters[i] = line.charAt(i);
-        }
-        Doolhof3[x] = Characters;
-        
-        while((line = d3.readLine()) != null){
-            x++;
-            Characters = new Character[line.length()];
-            for (int i = 0; i < line.length(); i++) {
-                Characters[i] = line.charAt(i);
-            }
-            Doolhof3[x]=Characters;
-        }
-        d3.close();
-        return Doolhof3;
     }
     
     @Override

@@ -49,8 +49,9 @@ public abstract class Voorwerpen{
         return 0;
     }
     
-    public String teken(){
-        return "J";
+    public Vierkant teken(){
+        Vierkant plaatje = new Vierkant(X + 1, Y + 1, "wit");
+        return plaatje;
     }
     
     public Voorwerpen setVoowerp(String voorwerp){
@@ -84,5 +85,10 @@ public abstract class Voorwerpen{
         } else {
             return null;
         }
+    }
+    
+    @Override
+    public String toString(){
+        return "";
     }
 }

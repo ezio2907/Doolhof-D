@@ -18,14 +18,19 @@ public class Valsspeler extends Voorwerpen{
         waarde = generator.nextInt(30) + 1;
     }
     
-    
     @Override
-    public String teken(){
-        return waarde + "";
+    public Vierkant teken(){
+        Vierkant plaatje = new Vierkant(this.getX() + 1, this.getY() + 1, "wit");
+        return plaatje;
     }
     
     @Override
     public int pickUp(){
         return 2;
+    }
+    
+    @Override
+    public String toString(){
+        return waarde + "";
     }
 }
