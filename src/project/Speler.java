@@ -11,7 +11,7 @@ package project;
 public class Speler{
     private int X;
     private int Y;
-    private boolean bazooka = true;
+    private boolean bazooka = false;
     private Character direction = 'E';
     
     

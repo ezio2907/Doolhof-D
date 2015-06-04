@@ -165,6 +165,7 @@ public class FrameDoolhof {
         if(Dh.setStappen(Dh.getStappen() + 1)){
             stappenLabel.setText(" GAME OVER!");
             pauze = true;
+            startButton.setFocusable(false);
         } else {
             stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
         }
