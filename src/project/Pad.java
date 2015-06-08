@@ -21,4 +21,12 @@ public class Pad extends Voorwerpen{
         return " ";
     }
     
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Pad)) {
+            return false;
+        }
+        return true;
+    }
+    
 }

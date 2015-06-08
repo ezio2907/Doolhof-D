@@ -9,7 +9,7 @@ X   M M M          X
 X M M   MMM MM M M X
 X M MMM M    M M M X
 X M   M M  MMM MM  X
-X M M  MM  MU  M  MX
+X M M  MM  M   M  MX
 X MMMM MB  MMMMMM  X
 X  M   MMMMM  M MM X
 XM M M   M      M  X

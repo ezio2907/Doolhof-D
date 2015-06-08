@@ -25,4 +25,12 @@ public class Uitgang  extends Voorwerpen{
     public String toString(){
         return "U";
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Uitgang)) {
+            return false;
+        }
+        return true;
+    }
 }

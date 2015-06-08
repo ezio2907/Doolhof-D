@@ -4,34 +4,14 @@
  */
 package project;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Stack;
-import javax.swing.JLabel;
 
 /**
  *
- * @author Admin
+ * @author bram
  */
-public class Helper extends Voorwerpen {
+public class mazeSolver {
 
-    public ArrayList<JLabel> labels;
-
-    @Override
-    public Vierkant teken() {
-        Vierkant plaatje = new Vierkant(this.getX() + 1, this.getY() + 1, "blauw");
-        return plaatje;
-    }
-
-    public void pickUp(ArrayList<JLabel> labels) {
-        this.labels = labels;
-    }
-
-    @Override
-    public String toString() {
-        return "H";
-    }
     final static int TRIED = 2;
     final static int PATH = 3;
     private Voorwerpen[][] grid;
@@ -39,11 +19,14 @@ public class Helper extends Voorwerpen {
     private int width;
     private int[][] map;
 
-    public boolean solve(Voorwerpen[][] grid) {
+    public mazeSolver(Voorwerpen[][] grid) {
         this.grid = grid;
         this.height = grid.length;
         this.width = grid[0].length;
         this.map = new int[height][width];
+    }
+
+    public boolean solve() {
         return traverse(1, 1);
     }
 
@@ -121,7 +104,7 @@ public class Helper extends Voorwerpen {
         return j >= 0 && j < width;
     }
 
-    public String toStringB() {
+    public String toString() {
         String s = "";
         for (int[] row : map) {
             s += Arrays.toString(row) + "\n";
