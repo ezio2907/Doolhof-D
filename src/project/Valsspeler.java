@@ -5,6 +5,7 @@
 package project;
 
 import java.util.Random;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -15,6 +16,12 @@ public class Valsspeler extends Voorwerpen{
     public Valsspeler(){
         Random generator = new Random();
         setValue(generator.nextInt(30) + 1);
+    }
+    
+    @Override
+    public ImageIcon tekenJezelf(){
+        ImageIcon image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/valsspeler.png");
+        return image;
     }
     
     @Override

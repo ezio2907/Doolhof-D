@@ -4,6 +4,8 @@
  */
 package project;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Admin
@@ -16,9 +18,9 @@ public class Muur extends Voorwerpen {
     }
 
     @Override
-    public Vierkant teken(){
-        Vierkant plaatje = new Vierkant(this.getX() + 1, this.getY() + 1, "grijs");
-        return plaatje;
+    public ImageIcon tekenJezelf(){
+        ImageIcon image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/muur.png");
+        return image;
     }
 
     @Override

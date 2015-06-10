@@ -5,6 +5,7 @@
 package project;
 
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import project.Valsspeler;
 import project.Muur;
@@ -29,6 +30,11 @@ public abstract class Voorwerpen{
     private int Y;
     private int value;
 
+    public ImageIcon tekenJezelf(){
+        //ImageIcon image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/muur_Liberty_rpgmaker.png");
+        return null;
+    }
+    
     public int getValue(){
         return value;
     }

@@ -94,13 +94,18 @@ public class FrameDoolhof {
             for (int x = 0; x < Doolhof.length; x++) {
                 JLabel label = new JLabel();
                 labels.add(label);
-                labels.get(positie).setText(Doolhof[y][x].toString());
+                //if (Doolhof[y][x].pickUp() == 2) {
+                    //labels.get(positie).setText(Doolhof[y][x].toString());
+                //} else {
+                    labels.get(positie).setIcon(Doolhof[y][x].tekenJezelf());
+                //}
                 jPanel1.add(label);
                 frame.add(jPanel1);
                 positie++;
             }
         }
-        labels.get(Dh.getSpeler().getY() * Doolhof.length + Dh.getSpeler().getX()).setText(Dh.getSpeler().toString());
+        jPanel1.setBackground(Color.green);
+        labels.get(Dh.getSpeler().getY() * Doolhof.length + Dh.getSpeler().getX()).setIcon(Dh.getSpeler().tekenJezelf());
         frame.setFocusable(true);
         frame.setVisible(true);
         jPanel1.setVisible(false);
@@ -114,11 +119,11 @@ public class FrameDoolhof {
         int positie = Y * Doolhof.length + X;
         int nPositie = nY * Doolhof.length + nX;
 
-        labels.get(positie).setText(Doolhof[Y][X].toString());
+        labels.get(positie).setIcon(Doolhof[Y][X].tekenJezelf());
 
-        labels.get(nPositie).setText("S");
+        labels.get(nPositie).setIcon(S.tekenJezelf());
 
-        if (Dh.setStappen(Dh.getStappen() + 1) && Doolhof[nY][nX].pickUp() !=2) {
+        if (Dh.setStappen(Dh.getStappen() + 1) && Doolhof[nY][nX].pickUp() != 2) {
             stappenLabel.setText(" GAME OVER!");
             gameOver = true;
             startButton.setFocusable(false);
@@ -171,7 +176,7 @@ public class FrameDoolhof {
                 }
 
             }
-            labels.get(nPositie).setText("S");
+            labels.get(nPositie).setIcon(S.tekenJezelf());
 //            for (Voorwerpen a : label) {
 //                if (a.equals(p) && Doolhof[1][1].equals(p)) {
 //                    labels.get(i).setText(" ");
@@ -233,6 +238,10 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 beweegSpeler(X - 1, Y);
                                 S.setP(X - 1, Y);
+                            } else {
+                                int positie = S.getY() * Doolhof.length + S.getX();
+
+                                labels.get(positie).setIcon(S.tekenJezelf());
                             }
                         }
                         if (e.getKeyCode() == 38) { //Omhoog
@@ -242,6 +251,10 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 beweegSpeler(X, Y - 1);
                                 S.setP(X, Y - 1);
+                            } else {
+                                int positie = S.getY() * Doolhof.length + S.getX();
+
+                                labels.get(positie).setIcon(S.tekenJezelf());
                             }
                         }
                         if (e.getKeyCode() == 39) { //Rechts
@@ -251,6 +264,10 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 beweegSpeler(X + 1, Y);
                                 S.setP(X + 1, Y);
+                            } else {
+                                int positie = S.getY() * Doolhof.length + S.getX();
+
+                                labels.get(positie).setIcon(S.tekenJezelf());
                             }
                         }
                         if (e.getKeyCode() == 40) { //Omlaag
@@ -260,6 +277,10 @@ public class FrameDoolhof {
                                 int Y = S.getY();
                                 beweegSpeler(X, Y + 1);
                                 S.setP(X, Y + 1);
+                            } else {
+                                int positie = S.getY() * Doolhof.length + S.getX();
+
+                                labels.get(positie).setIcon(S.tekenJezelf());
                             }
                         }
                         if (e.getKeyCode() == 32) { //Spatie
@@ -270,7 +291,7 @@ public class FrameDoolhof {
                                 int X = b.getVernietigdeMuurX();
                                 int Y = b.getVernietigdeMuurY();
                                 int positie = Y * Doolhof.length + X;
-                                labels.get(positie).setText(Doolhof[Y][X].toString());
+                                labels.get(positie).setIcon(Doolhof[Y][X].tekenJezelf());
                             }
                         }
                     }

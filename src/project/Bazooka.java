@@ -5,6 +5,7 @@
 package project;
 
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -14,6 +15,12 @@ public class Bazooka extends Voorwerpen{
     
     private int vernietigdeMuurX;
     private int vernietigdeMuurY;
+    
+    @Override
+    public ImageIcon tekenJezelf(){
+        ImageIcon image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/bazooka.png");
+        return image;
+    }
     
     @Override
     public Vierkant teken(){

@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
@@ -15,6 +16,12 @@ import javax.swing.JLabel;
  * @author Admin
  */
 public class Helper extends Voorwerpen {
+    
+    @Override
+    public ImageIcon tekenJezelf(){
+        ImageIcon image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/map.png");
+        return image;
+    }
     
     @Override
     public Vierkant teken() {
