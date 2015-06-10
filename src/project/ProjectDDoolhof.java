@@ -18,13 +18,8 @@ public class ProjectDDoolhof {
     public String[][] Doolhof;
 
     public static void main(String[] args) throws IOException {
-        startFrame start = new startFrame();
-        start.FrameMaken();
-    }
-    
-    public static void beginLevel(int level) throws IOException{
         FrameDoolhof FD = new FrameDoolhof();
-        FD.opbouw(level);
+        FD.opbouw(1);
     }
 
 }

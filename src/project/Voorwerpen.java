@@ -27,6 +27,14 @@ public abstract class Voorwerpen{
     private Voorwerpen Bazooka;
     private int X;
     private int Y;
+    private int value;
+
+    public int getValue(){
+        return value;
+    }
+    public void setValue(int waarde){
+        this.value = waarde;
+    }
     
     public int getX(){
         return X;

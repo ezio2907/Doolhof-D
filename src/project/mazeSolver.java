@@ -40,8 +40,6 @@ public class mazeSolver {
     }
 
     private ArrayList<Voorwerpen> showPad(String answer) {
-//        ArrayList<int[]> coordinaten = new ArrayList<>();
-//        coordinaten = getLaatsteCoords(getIndexOfMin());
         ArrayList<Voorwerpen> snel = new ArrayList<>();
         Muur m = new Muur(true);
         for (int i = 0; i < Doolhof.length; i++) {

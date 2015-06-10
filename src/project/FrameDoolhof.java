@@ -36,6 +36,7 @@ public class FrameDoolhof {
     public JButton pauzeButton = new JButton("Pauze");
     public JButton opnieuwButton = new JButton("Opnieuw");
     public boolean pauze;
+    public boolean gameOver;
     public JLabel stappenLabel = new JLabel();
 
     public void opbouw(int level) throws IOException {
@@ -84,6 +85,7 @@ public class FrameDoolhof {
         Doolhof = Dh.getDoolhof();
         S = Dh.getSpeler();
         Dh.setStappen(0);
+        gameOver = false;
         stappenLabel.setText("Stappen: " + (Dh.getMaxStappen()));
         jPanel1.setLayout(new GridLayout(Doolhof.length, Doolhof.length));
 
@@ -123,6 +125,56 @@ public class FrameDoolhof {
         } else {
             stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
         }
+        
+        if (Doolhof[nY][nX].pickUp() == 1) { //Uitgang
+            pauzeButton.doClick();
+            Dh.levelUp();
+            try {
+                LevelCreater(Dh.getLevel());
+                opnieuwButton.doClick();
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+            opnieuwButton.doClick();
+        } else if (Doolhof[nY][nX].pickUp() == 2) { //Valsspeler
+            Dh.setMaxStappen(Dh.getMaxStappen() + Doolhof[nY][nX].getValue());
+
+            Pad P = new Pad();
+            P.setP(nX, nY);
+            Doolhof[nY][nX] = P;
+            Doolhof[nY][nX].teken();
+            stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
+        } else if (Doolhof[nY][nX].pickUp() == 3) { //Bazooka
+            S.setBazooka(true);
+
+            Pad P = new Pad();
+            P.setP(nX, nY);
+            Doolhof[nY][nX] = P;
+            Doolhof[nY][nX].teken();
+        } else if (Doolhof[nY][nX].pickUp() == 4) { //Helper
+            int result[] = coords();
+            mazeSolver maze = new mazeSolver();
+            maze.setGegevens(nY, nX, result[0], result[1], Doolhof);
+//            Helper h = new Helper();
+//            h.setDimensies(y, x, result[0], result[1]);
+//            boolean solved = h.solve(Doolhof);
+            Pad P = new Pad();
+            P.setP(nX, nY);
+//            int lengte = Doolhof.length;
+            Doolhof[nY][nX] = P;
+            Doolhof[nY][nX].teken();
+            ArrayList<Voorwerpen> label = maze.solve();
+            Pad p = new Pad();
+            int i = 0;
+            for (Voorwerpen a : label) {
+                if (a.equals(p)) {
+                    labels.get(i).setText(" ");
+                    labels.get(i).setBackground(Color.red);
+                    labels.get(i).setOpaque(true);
+                }
+                i++;
+            }
+        }
     }
 
     public boolean canMove(String direction) {
@@ -143,55 +195,7 @@ public class FrameDoolhof {
                 break;
         }
 
-        if (Doolhof[y][x].pickUp() == 1) { //Uitgang
-            pauzeButton.doClick();
-            Dh.levelUp();
-            try {
-                LevelCreater(Dh.getLevel());
-                opnieuwButton.doClick();
-            } catch (IOException ex) {
-                System.out.println(ex);
-            }
-            opnieuwButton.doClick();
-            return false;
-        } else if (Doolhof[y][x].pickUp() == 2) { //Valsspeler
-            Dh.setMaxStappen(Dh.getMaxStappen());
-
-            Pad P = new Pad();
-            P.setP(x, y);
-            Doolhof[y][x] = P;
-            Doolhof[y][x].teken();
-        } else if (Doolhof[y][x].pickUp() == 3) { //Bazooka
-            S.setBazooka(true);
-
-            Pad P = new Pad();
-            P.setP(x, y);
-            Doolhof[y][x] = P;
-            Doolhof[y][x].teken();
-        } else if (Doolhof[y][x].pickUp() == 4) { //Helper
-            int result[] = coords();
-            mazeSolver maze = new mazeSolver();
-            maze.setGegevens(y, x, result[0], result[1], Doolhof);
-//            Helper h = new Helper();
-//            h.setDimensies(y, x, result[0], result[1]);
-//            boolean solved = h.solve(Doolhof);
-            Pad P = new Pad();
-            P.setP(x, y);
-//            int lengte = Doolhof.length;
-            Doolhof[y][x] = P;
-            Doolhof[y][x].teken();
-            ArrayList<Voorwerpen> label = maze.solve();
-            Pad p = new Pad();
-            int i = 0;
-            for (Voorwerpen a : label) {
-                if (a.equals(p)) {
-                    labels.get(i).setText(" ");
-                    labels.get(i).setBackground(Color.red);
-                    labels.get(i).setOpaque(true);
-                }
-                i++;
-            }
-        }
+        
         return Doolhof[y][x].loopbaar;
     }
 
@@ -216,7 +220,7 @@ public class FrameDoolhof {
 
                 @Override
                 public void keyPressed(KeyEvent e) {
-                    if (!pauze) {
+                    if (!pauze && !gameOver) {
                         if (e.getKeyCode() == 37) { //Links
                             S.setDirection('W');
                             if (canMove("Links")) {
