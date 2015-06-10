@@ -68,6 +68,10 @@ public class Doolhof {
             this.Doolhof = DoolhofMaak(3);
             maxStappen = 150;
             level = nummer;
+        }else if(nummer == 5){
+            this.Doolhof = DoolhofMaak(5);
+            maxStappen = 100;
+            level = nummer;
         }else{
             this.Doolhof = DoolhofMaak(1);
             maxStappen = 80;

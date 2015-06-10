@@ -45,7 +45,7 @@ public class startFrame {
         @Override
         public void actionPerformed(ActionEvent event) {
             int LVL = Integer.parseInt(level.getText());
-            if (LVL != 1 && LVL != 2 && LVL !=3) {
+            if (LVL != 1 && LVL != 2 && LVL !=3 && LVL !=4 && LVL != 5) {
                 error.setVisible(true);
             } else {
                 frame.dispose();

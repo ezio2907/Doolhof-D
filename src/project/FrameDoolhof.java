@@ -5,6 +5,7 @@
 package project;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -167,8 +168,45 @@ public class FrameDoolhof {
             P.setP(x, y);
             Doolhof[y][x] = P;
             Doolhof[y][x].teken();
+        } else if (Doolhof[y][x].pickUp() == 4) { //Helper
+            int result[] = coords();
+            mazeSolver maze = new mazeSolver();
+            maze.setGegevens(y, x, result[0], result[1], Doolhof);
+//            Helper h = new Helper();
+//            h.setDimensies(y, x, result[0], result[1]);
+//            boolean solved = h.solve(Doolhof);
+            Pad P = new Pad();
+            P.setP(x, y);
+//            int lengte = Doolhof.length;
+            Doolhof[y][x] = P;
+            Doolhof[y][x].teken();
+            ArrayList<Voorwerpen> label = maze.solve();
+            Pad p = new Pad();
+            int i = 0;
+            for (Voorwerpen a : label) {
+                if (a.equals(p)) {
+                    labels.get(i).setText(" ");
+                    labels.get(i).setBackground(Color.red);
+                    labels.get(i).setOpaque(true);
+                }
+                i++;
+            }
         }
         return Doolhof[y][x].loopbaar;
+    }
+
+    public int[] coords() {
+        Uitgang U = new Uitgang();
+        int i = 0;
+        int j = 0;
+        for (i = 0; i < Doolhof.length; i++) {
+            for (j = 0; j < Doolhof.length; j++) {
+                if (Doolhof[i][j].equals(U)) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[]{11, 12};
     }
 
     public class GamePanel extends JFrame {

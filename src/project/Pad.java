@@ -29,4 +29,9 @@ public class Pad extends Voorwerpen{
         return true;
     }
     
+    public Vierkant snelste(){
+        Vierkant plaatje = new Vierkant(this.getX() + 1, this.getY() + 1, "rood");
+        return plaatje;
+    }
+    
 }
