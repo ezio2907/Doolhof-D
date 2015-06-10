@@ -114,24 +114,23 @@ public class FrameDoolhof {
         int positie = Y * Doolhof.length + X;
         int nPositie = nY * Doolhof.length + nX;
 
-        labels.get(positie).setText(" ");
+        labels.get(positie).setText(Doolhof[Y][X].toString());
 
         labels.get(nPositie).setText("S");
 
-        if (Dh.setStappen(Dh.getStappen() + 1)) {
+        if (Dh.setStappen(Dh.getStappen() + 1) && Doolhof[nY][nX].pickUp() !=2) {
             stappenLabel.setText(" GAME OVER!");
-            pauze = true;
+            gameOver = true;
             startButton.setFocusable(false);
         } else {
             stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
         }
-        
+
         if (Doolhof[nY][nX].pickUp() == 1) { //Uitgang
             pauzeButton.doClick();
             Dh.levelUp();
             try {
                 LevelCreater(Dh.getLevel());
-                opnieuwButton.doClick();
             } catch (IOException ex) {
                 System.out.println(ex);
             }
@@ -144,7 +143,7 @@ public class FrameDoolhof {
             Doolhof[nY][nX] = P;
             Doolhof[nY][nX].teken();
             stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
-        } else if (Doolhof[nY][nX].pickUp() == 3) { //Bazooka
+        } else if (Doolhof[nY][nX].pickUp() == 3 && !S.getBazooka()) { //Bazooka
             S.setBazooka(true);
 
             Pad P = new Pad();
@@ -153,27 +152,33 @@ public class FrameDoolhof {
             Doolhof[nY][nX].teken();
         } else if (Doolhof[nY][nX].pickUp() == 4) { //Helper
             int result[] = coords();
-            mazeSolver maze = new mazeSolver();
-            maze.setGegevens(nY, nX, result[0], result[1], Doolhof);
-//            Helper h = new Helper();
-//            h.setDimensies(y, x, result[0], result[1]);
-//            boolean solved = h.solve(Doolhof);
+            Helper h = new Helper();
+            h.setGegevens(nY, nX, result[0], result[1], Doolhof);
             Pad P = new Pad();
             P.setP(nX, nY);
-//            int lengte = Doolhof.length;
             Doolhof[nY][nX] = P;
             Doolhof[nY][nX].teken();
-            ArrayList<Voorwerpen> label = maze.solve();
+            ArrayList<Voorwerpen> snelste = h.solve();
             Pad p = new Pad();
-            int i = 0;
-            for (Voorwerpen a : label) {
-                if (a.equals(p)) {
-                    labels.get(i).setText(" ");
-                    labels.get(i).setBackground(Color.red);
-                    labels.get(i).setOpaque(true);
+            for (int j = 0; j < Doolhof.length; j++) {
+                for (int k = 0; k < Doolhof.length; k++) {
+                    int plaats = j * Doolhof.length + k;
+                    if (snelste.get(plaats).equals(p) && Doolhof[j][k].equals(p)) {
+                        labels.get(plaats).setText(" ");
+                        labels.get(plaats).setBackground(Color.red);
+                        labels.get(plaats).setOpaque(true);
+                    }
                 }
-                i++;
+
             }
+            labels.get(nPositie).setText("S");
+//            for (Voorwerpen a : label) {
+//                if (a.equals(p) && Doolhof[1][1].equals(p)) {
+//                    labels.get(i).setText(" ");
+//                    labels.get(i).setBackground(Color.red);
+//                    labels.get(i).setOpaque(true);
+//                }
+//            }
         }
     }
 
@@ -195,7 +200,7 @@ public class FrameDoolhof {
                 break;
         }
 
-        
+
         return Doolhof[y][x].loopbaar;
     }
 
@@ -261,7 +266,11 @@ public class FrameDoolhof {
                             if (S.getBazooka()) {
                                 Bazooka b = new Bazooka();
                                 S.setBazooka(false);
-                                b.vuur(S.getDirection(), Doolhof, Doolhof.length, S.getX(), S.getY());
+                                Doolhof = b.vuur(S.getDirection(), Doolhof, Doolhof.length, S.getX(), S.getY());
+                                int X = b.getVernietigdeMuurX();
+                                int Y = b.getVernietigdeMuurY();
+                                int positie = Y * Doolhof.length + X;
+                                labels.get(positie).setText(Doolhof[Y][X].toString());
                             }
                         }
                     }

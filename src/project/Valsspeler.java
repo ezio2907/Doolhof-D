@@ -30,6 +30,6 @@ public class Valsspeler extends Voorwerpen{
     
     @Override
     public String toString(){
-        return waarde + "";
+        return getValue() + "";
     }
 }

@@ -40,7 +40,6 @@ public class Bazooka extends Voorwerpen{
     }
     
     public Voorwerpen[][] vuur(Character directie, Voorwerpen[][] Doolhof, int length, int X, int Y) {
-        System.out.println(directie);
         if (directie == 'N') {
             vernietigN(Doolhof, length, X, Y);
         } else if (directie == 'E') {
