@@ -14,7 +14,7 @@ public class Pad extends Voorwerpen{
     
     @Override
     public ImageIcon tekenJezelf(){
-        ImageIcon image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/floor.png");
+        ImageIcon image = new ImageIcon("graphics/floor.png");
         return image;
     }
     

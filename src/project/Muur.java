@@ -19,7 +19,7 @@ public class Muur extends Voorwerpen {
 
     @Override
     public ImageIcon tekenJezelf(){
-        ImageIcon image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/muur.png");
+        ImageIcon image = new ImageIcon("graphics/muur.png");
         return image;
     }
 

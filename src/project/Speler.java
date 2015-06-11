@@ -20,13 +20,13 @@ public class Speler {
     public ImageIcon tekenJezelf() {
         ImageIcon image;
         if (direction == 'N') {
-            image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/spelerN.png");
+            image = new ImageIcon("graphics/spelerN.png");
         } else if (direction == 'E') {
-            image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/spelerE.png");
+            image = new ImageIcon("graphics/spelerE.png");
         } else if (direction == 'S') {
-            image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/spelerS.png");
+            image = new ImageIcon("graphics/spelerS.png");
         } else {
-            image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/spelerW.png");
+            image = new ImageIcon("graphics/spelerW.png");
         }
         return image;
     }

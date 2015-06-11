@@ -15,7 +15,7 @@ public class Uitgang  extends Voorwerpen{
     
     @Override
     public ImageIcon tekenJezelf(){
-        ImageIcon image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/door.png");
+        ImageIcon image = new ImageIcon("graphics/door.png");
         return image;
     }
     

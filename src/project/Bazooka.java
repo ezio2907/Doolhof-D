@@ -18,7 +18,7 @@ public class Bazooka extends Voorwerpen{
     
     @Override
     public ImageIcon tekenJezelf(){
-        ImageIcon image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/bazooka.png");
+        ImageIcon image = new ImageIcon("graphics/bazooka.png");
         return image;
     }
     

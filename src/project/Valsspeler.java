@@ -20,7 +20,7 @@ public class Valsspeler extends Voorwerpen{
     
     @Override
     public ImageIcon tekenJezelf(){
-        ImageIcon image = new ImageIcon("Z:/Gebruiker/Documenten/NetBeansProjects/Doolhof-D/graphics/valsspeler.png");
+        ImageIcon image = new ImageIcon("graphics/valsspeler.png");
         return image;
     }
     
