@@ -104,7 +104,7 @@ public class FrameDoolhof {
                 positie++;
             }
         }
-        jPanel1.setBackground(Color.green);
+        //jPanel1.setBackground(Color.green);
         labels.get(Dh.getSpeler().getY() * Doolhof.length + Dh.getSpeler().getX()).setIcon(Dh.getSpeler().tekenJezelf());
         frame.setFocusable(true);
         frame.setVisible(true);
