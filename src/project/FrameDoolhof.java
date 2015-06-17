@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import javax.swing.Timer;
 
 /**
  *
@@ -35,6 +36,8 @@ public class FrameDoolhof {
     public boolean pauze;
     public boolean gameOver;
     public JLabel stappenLabel = new JLabel();
+    public Timer timer = new Timer(1, new TimerListener());
+    private ArrayList<Vijand> Enemy;
 
     public void opbouw(int level) throws IOException {
         labels = new ArrayList<>();
@@ -82,6 +85,7 @@ public class FrameDoolhof {
         Doolhof = Dh.getDoolhof();
         S = Dh.getSpeler();
         Dh.setStappen(0);
+        Enemy = Dh.getEnemy();
         gameOver = false;
         stappenLabel.setText("Stappen: " + (Dh.getMaxStappen()));
         jPanel1.setLayout(new GridLayout(Doolhof.length, Doolhof.length));
@@ -103,6 +107,9 @@ public class FrameDoolhof {
         }
         //jPanel1.setBackground(Color.green);
         labels.get(Dh.getSpeler().getY() * Doolhof.length + Dh.getSpeler().getX()).setIcon(Dh.getSpeler().tekenJezelf());
+        for(Vijand V:Enemy){
+            labels.get(V.getY() * Doolhof.length + V.getX()).setIcon(V.tekenJezelf());
+        }
         frame.setFocusable(true);
         frame.setVisible(true);
         jPanel1.setVisible(false);
@@ -119,6 +126,17 @@ public class FrameDoolhof {
         labels.get(positie).setIcon(Doolhof[Y][X].tekenJezelf());
 
         labels.get(nPositie).setIcon(S.tekenJezelf());
+        
+        Character D = S.getDirection();
+        if(D == 'N'){
+            S.setP(nX, nY);
+        }else if(D == 'E'){
+            S.setP(nX, nY);
+        }else if(D == 'W'){
+            S.setP(nX, nY);
+        }else if(D == 'S'){
+            S.setP(nX, nY);
+        }
 
         if (Dh.setStappen(Dh.getStappen() + 1) && Doolhof[nY][nX].pickUp() != 2) {
             stappenLabel.setText(" GAME OVER!");
@@ -176,35 +194,103 @@ public class FrameDoolhof {
 
             }
             labels.get(nPositie).setIcon(S.tekenJezelf());
-//            for (Voorwerpen a : label) {
-//                if (a.equals(p) && Doolhof[1][1].equals(p)) {
-//                    labels.get(i).setText(" ");
-//                    labels.get(i).setBackground(Color.red);
-//                    labels.get(i).setOpaque(true);
-//                }
-//            }
+        }
+        
+        for (int i = 0; i < Enemy.size(); i++) {
+            if(Enemy.get(i).getX()==S.getX() && Enemy.get(i).getY()==S.getY()){
+                if(Dh.setStappen(Dh.getStappen() + 10)){
+                    stappenLabel.setText(" GAME OVER!");
+                    gameOver = true;
+                    startButton.setFocusable(false);
+                } else {
+                    stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
+                }
+                Enemy.remove(i);
+            }
         }
     }
 
-    public boolean canMove(String direction) {
-        int x = S.getX();
-        int y = S.getY();
+    public void beweegVijand(){
+        for (int i = 0; i < Enemy.size(); i++) {
+            boolean[] kanten = new boolean[4];
+            int X = Enemy.get(i).getX();
+            int Y = Enemy.get(i).getY();
+            kanten[0] = canMove("Omhoog",X,Y);
+            kanten[1] = canMove("Links",X,Y);
+            kanten[2] = canMove("Rechts",X,Y);
+            kanten[3] = canMove("Omlaag",X,Y);
+            
+            if(Enemy.get(i).getDirection() == 'N'){
+                kanten[3] = false;
+            }
+            if(Enemy.get(i).getDirection() == 'E'){
+                kanten[1] = false;
+            }
+            if(Enemy.get(i).getDirection() == 'W'){
+                kanten[2] = false;
+            }
+            if(Enemy.get(i).getDirection() == 'S'){
+                kanten[0] = false;
+            }
+            
+            if(loopVijand(Enemy.get(i).nieuwDirection(kanten), Enemy.get(i))){
+                Enemy.remove(i);
+            }
+        }
+    }
+    
+    public boolean loopVijand(Character D, Vijand V){
+        int X = V.getX();
+        int Y = V.getY();
+        int positie = Y * Doolhof.length + X;
+
+        labels.get(positie).setIcon(Doolhof[Y][X].tekenJezelf());
+        
+        if(D == 'N'){
+            Y--;
+        }
+        if(D == 'E'){
+            X++;
+        }
+        if(D == 'W'){
+            X--;
+        }
+        if(D == 'S'){
+            Y++;
+        }
+        
+        V.setP(X, Y);
+        positie = Y * Doolhof.length + X;
+        
+        if(X==S.getX() && Y==S.getY()){
+            if(Dh.setStappen(Dh.getStappen() + 10)){
+                stappenLabel.setText(" GAME OVER!");
+                gameOver = true;
+                startButton.setFocusable(false);
+            } else {
+                stappenLabel.setText("Stappen: " + (Dh.getMaxStappen() - Dh.getStappen()));
+            }
+            return true;
+        }
+        labels.get(positie).setIcon(V.tekenJezelf());
+        return false;
+    }
+    
+    public boolean canMove(String direction, int x, int y) {
         switch (direction) {
             case "Rechts":
-                x = S.getX() + 1;
+                x = x + 1;
                 break;
             case "Links":
-                x = S.getX() - 1;
+                x = x - 1;
                 break;
             case "Omhoog":
-                y = S.getY() - 1;
+                y = y - 1;
                 break;
             case "Omlaag":
-                y = S.getY() + 1;
+                y = y + 1;
                 break;
         }
-
-
         return Doolhof[y][x].loopbaar;
     }
 
@@ -230,13 +316,12 @@ public class FrameDoolhof {
                 @Override
                 public void keyPressed(KeyEvent e) {
                     if (!pauze && !gameOver) {
+                        int X = S.getX();
+                        int Y = S.getY();
                         if (e.getKeyCode() == 37) { //Links
                             S.setDirection('W');
-                            if (canMove("Links")) {
-                                int X = S.getX();
-                                int Y = S.getY();
+                            if (canMove("Links",X ,Y)) {
                                 beweegSpeler(X - 1, Y);
-                                S.setP(X - 1, Y);
                             } else {
                                 int positie = S.getY() * Doolhof.length + S.getX();
 
@@ -245,11 +330,8 @@ public class FrameDoolhof {
                         }
                         if (e.getKeyCode() == 38) { //Omhoog
                             S.setDirection('N');
-                            if (canMove("Omhoog")) {
-                                int X = S.getX();
-                                int Y = S.getY();
+                            if (canMove("Omhoog",X ,Y)) {
                                 beweegSpeler(X, Y - 1);
-                                S.setP(X, Y - 1);
                             } else {
                                 int positie = S.getY() * Doolhof.length + S.getX();
 
@@ -258,11 +340,8 @@ public class FrameDoolhof {
                         }
                         if (e.getKeyCode() == 39) { //Rechts
                             S.setDirection('E');
-                            if (canMove("Rechts")) {
-                                int X = S.getX();
-                                int Y = S.getY();
+                            if (canMove("Rechts",X ,Y)) {
                                 beweegSpeler(X + 1, Y);
-                                S.setP(X + 1, Y);
                             } else {
                                 int positie = S.getY() * Doolhof.length + S.getX();
 
@@ -271,11 +350,8 @@ public class FrameDoolhof {
                         }
                         if (e.getKeyCode() == 40) { //Omlaag
                             S.setDirection('S');
-                            if (canMove("Omlaag")) {
-                                int X = S.getX();
-                                int Y = S.getY();
+                            if (canMove("Omlaag",X ,Y)) {
                                 beweegSpeler(X, Y + 1);
-                                S.setP(X, Y + 1);
                             } else {
                                 int positie = S.getY() * Doolhof.length + S.getX();
 
@@ -287,8 +363,8 @@ public class FrameDoolhof {
                                 Bazooka b = new Bazooka();
                                 S.setBazooka(false);
                                 Doolhof = b.vuur(S.getDirection(), Doolhof, Doolhof.length, S.getX(), S.getY());
-                                int X = b.getVernietigdeMuurX();
-                                int Y = b.getVernietigdeMuurY();
+                                X = b.getVernietigdeMuurX();
+                                Y = b.getVernietigdeMuurY();
                                 int positie = Y * Doolhof.length + X;
                                 labels.get(positie).setIcon(Doolhof[Y][X].tekenJezelf());
                             }
@@ -304,8 +380,7 @@ public class FrameDoolhof {
                 public void keyTyped(KeyEvent e) {
                 }
             });
-            setFocusable(
-                    false);
+            setFocusable(false);
         }
     }
 
@@ -330,6 +405,7 @@ public class FrameDoolhof {
             if (pauze) {
                 jPanel1.setVisible(true);
                 pauze = false;
+                timer.start();
                 startButton.setFocusable(pauze);
             }
         }
@@ -343,7 +419,24 @@ public class FrameDoolhof {
                 jPanel1.setVisible(false);
                 pauze = true;
                 startButton.setFocusable(pauze);
+                timer.stop();
             }
         }
     }
+    
+    class TimerListener implements ActionListener{
+        int elapsedSeconds = 53;
+
+        @Override
+        public void actionPerformed(ActionEvent evt){
+            elapsedSeconds--;
+            if(elapsedSeconds <= 0){
+                elapsedSeconds = 53;
+                timer.start();
+                beweegVijand();
+            }
+        }
+
+    }
+
 }

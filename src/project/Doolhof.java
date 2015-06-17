@@ -23,7 +23,12 @@ public class Doolhof {
     private Speler S = new Speler();
     private int aantalStappen = 0;
     private int level = 0;
+    private ArrayList<Vijand> Enemy;
 
+    public ArrayList<Vijand> getEnemy(){
+        return Enemy;
+    }
+    
     public Voorwerpen[][] getDoolhof() {
         return Doolhof;
     }
@@ -61,6 +66,7 @@ public class Doolhof {
     }
 
     public void setDoolhof(int nummer) throws IOException {
+        Enemy = new ArrayList<>();
         if (nummer == 1) {
             this.Doolhof = DoolhofMaak(1);
             maxStappen = 80;
@@ -81,7 +87,6 @@ public class Doolhof {
     }
 
     private Voorwerpen[][] DoolhofMaak(int level) throws IOException {
-        System.out.println(level);
         String path = "Doolhof/Doolhof" + level + ".txt";
         BufferedReader d1 = new BufferedReader(new FileReader(path));
         String line = d1.readLine();
@@ -116,6 +121,14 @@ public class Doolhof {
             return M;
         } else if (voorwerp == 'S') {
             S.setP(x, y);
+            Pad P = new Pad();
+            P.setP(x, y);
+            return P;
+        } else if (voorwerp == 'E') {
+            Vijand enemy =new Vijand();
+            enemy.setP(x, y);
+            Enemy.add(enemy);
+            
             Pad P = new Pad();
             P.setP(x, y);
             return P;
