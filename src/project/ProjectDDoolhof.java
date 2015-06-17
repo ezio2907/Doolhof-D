@@ -19,7 +19,7 @@ public class ProjectDDoolhof {
 
     public static void main(String[] args) throws IOException {
         FrameDoolhof FD = new FrameDoolhof();
-        FD.opbouw(2);
+        FD.opbouw(1);
     }
 
 }
