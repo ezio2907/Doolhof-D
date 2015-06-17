@@ -15,10 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  *
@@ -132,6 +129,7 @@ public class FrameDoolhof {
         }
 
         if (Doolhof[nY][nX].pickUp() == 1) { //Uitgang
+            textWriter t = new textWriter(Dh.getLevel(),(Dh.getMaxStappen() - Dh.getStappen()));
             pauzeButton.doClick();
             Dh.levelUp();
             try {
@@ -169,7 +167,8 @@ public class FrameDoolhof {
                 for (int k = 0; k < Doolhof.length; k++) {
                     int plaats = j * Doolhof.length + k;
                     if (snelste.get(plaats).equals(p) && Doolhof[j][k].equals(p)) {
-                        labels.get(plaats).setText(" ");
+                        ImageIcon image = new ImageIcon("graphics/floorFast.png");
+                        labels.get(plaats).setIcon(image);
                         labels.get(plaats).setBackground(Color.red);
                         labels.get(plaats).setOpaque(true);
                     }

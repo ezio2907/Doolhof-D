@@ -17,89 +17,95 @@ import java.io.IOException;
  * @author Admin
  */
 public class Doolhof {
+
     private Voorwerpen[][] Doolhof;
     private int maxStappen;
     private Speler S = new Speler();
     private int aantalStappen = 0;
     private int level = 0;
-        
-    public Voorwerpen[][] getDoolhof(){
+
+    public Voorwerpen[][] getDoolhof() {
         return Doolhof;
     }
-    public int getStappen(){
+
+    public int getStappen() {
         return aantalStappen;
     }
-    public Speler getSpeler(){
+
+    public Speler getSpeler() {
         return S;
     }
-    public int getMaxStappen(){
+
+    public int getMaxStappen() {
         return maxStappen;
     }
-    public int getLevel(){
+
+    public int getLevel() {
         return level;
     }
-    public void levelUp(){
+
+    public void levelUp() {
         level++;
     }
-    
-    
-    public boolean setStappen(int aantalStappen){
+
+    public boolean setStappen(int aantalStappen) {
         this.aantalStappen = aantalStappen;
-        if (aantalStappen >= maxStappen){
+        if (aantalStappen >= maxStappen) {
             return true;
         }
         return false;
     }
-    
-    public void setMaxStappen(int maxStappen){
+
+    public void setMaxStappen(int maxStappen) {
         this.maxStappen = maxStappen;
     }
-    
-    public void setDoolhof(int nummer) throws IOException{
-        if(nummer == 1){
+
+    public void setDoolhof(int nummer) throws IOException {
+        if (nummer == 1) {
             this.Doolhof = DoolhofMaak(1);
             maxStappen = 80;
             level = nummer;
-        }else if(nummer == 2){
+        } else if (nummer == 2) {
             this.Doolhof = DoolhofMaak(2);
             maxStappen = 90;
             level = nummer;
-        }else if(nummer == 3){
+        } else if (nummer == 3) {
             this.Doolhof = DoolhofMaak(3);
             maxStappen = 150;
             level = nummer;
-        }else{
+        } else {
             this.Doolhof = DoolhofMaak(1);
             maxStappen = 80;
             level = 1;
         }
     }
-    
-    private Voorwerpen[][] DoolhofMaak(int level) throws IOException{
-        String path = "Doolhof/Doolhof"+level+".txt";
+
+    private Voorwerpen[][] DoolhofMaak(int level) throws IOException {
+        System.out.println(level);
+        String path = "Doolhof/Doolhof" + level + ".txt";
         BufferedReader d1 = new BufferedReader(new FileReader(path));
         String line = d1.readLine();
         Voorwerpen[][] Doolhof1 = new Voorwerpen[line.length()][line.length()];
         int y = 0;
-        
+
         Voorwerpen[] spelObjecten = new Voorwerpen[line.length()];
         for (int i = 0; i < line.length(); i++) {
             spelObjecten[i] = maakVoorwerp(y, i, line.charAt(i));
         }
         Doolhof1[y] = spelObjecten;
-        while((line = d1.readLine()) != null){
+        while ((line = d1.readLine()) != null) {
             y++;
             spelObjecten = new Voorwerpen[line.length()];
             for (int i = 0; i < line.length(); i++) {
                 spelObjecten[i] = maakVoorwerp(y, i, line.charAt(i));
             }
-            Doolhof1[y]=spelObjecten;
+            Doolhof1[y] = spelObjecten;
         }
         d1.close();
         return Doolhof1;
     }
-    
-    private Voorwerpen maakVoorwerp(int y, int x, Character voorwerp){
+
+    private Voorwerpen maakVoorwerp(int y, int x, Character voorwerp) {
         if (voorwerp == 'X') {
             Muur X = new Muur(false);
             X.setP(x, y);
@@ -139,14 +145,14 @@ public class Doolhof {
             return P;
         }
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         String waarde = "";
         for (int x = 0; x < Doolhof.length; x++) {
             for (int y = 0; y < Doolhof.length; y++) {
                 waarde = waarde + Doolhof[x][y];
-                if (y + 1 == Doolhof.length){
+                if (y + 1 == Doolhof.length) {
                     waarde = waarde + "\n";
                 }
             }

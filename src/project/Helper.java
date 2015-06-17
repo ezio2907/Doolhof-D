@@ -48,8 +48,11 @@ public class Helper extends Voorwerpen {
     public ArrayList<Integer> length = new ArrayList<>();
     public ArrayList<int[]> bezocht = new ArrayList<>();
     public ArrayList<Boolean> actief = new ArrayList<>();
+    public Muur m = new Muur(true);
 
     public ArrayList<Voorwerpen> solve() {
+        //deze method word aangeroepen vanuit FrameDoolhof
+        //vanuit hier wordt alles aangeroepen wat benodigd is om het kortste pad te vinden
         int[] eerste = new int[3];
         eerste[0] = spelerY;
         eerste[1] = spelerX;
@@ -66,7 +69,6 @@ public class Helper extends Voorwerpen {
 
     private ArrayList<Voorwerpen> showPad(String answer) {
         ArrayList<Voorwerpen> snel = new ArrayList<>();
-        Muur m = new Muur(true);
         for (int i = 0; i < Doolhof.length; i++) {
             for (int j = 0; j < Doolhof.length; j++) {
                 snel.add(m);
@@ -95,11 +97,7 @@ public class Helper extends Voorwerpen {
     }
 
     private int selectNode() {
-        int number = getIndexOfMin();
-        return number;
-    }
-
-    public int getIndexOfMin() {
+        //selecteert de coordinaten van het kortste bekende pad
         int min = 9999;
         int minIndex = 0;
         for (int i = 0; i < length.size(); i++) {
@@ -111,26 +109,28 @@ public class Helper extends Voorwerpen {
         }
         return minIndex;
     }
-
+    
     private String checkNodes() {
         int x;
         int y;
-        int[] coords = new int[2];
-        Muur m = new Muur(true);
         boolean first;
         while (checkEinde() == false) {
             first = true;
             int node = selectNode();
-            int afstand = length.get(node) + 1;
             String pad = paden.get(node);
             ArrayList<int[]> coordinaten;
             coordinaten = getLaatsteCoords(node);
             int aantal = coordinaten.size();
             final int X = coordinaten.get(aantal - 1)[1];
             final int Y = coordinaten.get(aantal - 1)[0];
+            for (int i = 0; i < 4; i++) {
+                
+            }
             y = Y;
             x = X;
-            if (Doolhof[y - 1][x].equals(m) || oudKleinerDanNieuw(x, (y - 1), afstand, node)) {
+            //kijkt of de tile naar het noorden een muur is of of deze al bezocht is.
+            //als dat beide niet het geval is dan voegt hij deze toe aan bezochte paden
+            if (Doolhof[y - 1][x].equals(m) || bezocht(x, (y - 1))) {
             } else {
                 String NieuwPad = pad + (y - 1) + "," + x + "/";
                 if (first) {
@@ -145,7 +145,9 @@ public class Helper extends Voorwerpen {
             }
             y = Y;
             x = X;
-            if (Doolhof[y][x + 1].equals(m) || oudKleinerDanNieuw((x + 1), y, afstand, node)) {
+            //kijkt of de tile naar het oosten een muur is of of deze al bezocht is.
+            //als dat beide niet het geval is dan voegt hij deze toe aan bezochte paden
+            if (Doolhof[y][x + 1].equals(m) || bezocht((x + 1), y)) {
             } else {
                 String NieuwPad = pad + y + "," + (x + 1) + "/";
                 if (first) {
@@ -160,7 +162,9 @@ public class Helper extends Voorwerpen {
             }
             y = Y;
             x = X;
-            if (Doolhof[y + 1][x].equals(m) || oudKleinerDanNieuw(x, (y + 1), afstand, node)) {
+            //kijkt of de tile naar het zuiden een muur is of of deze al bezocht is.
+            //als dat beide niet het geval is dan voegt hij deze toe aan bezochte paden
+            if (Doolhof[y + 1][x].equals(m) || bezocht(x, (y + 1))) {
             } else {
                 String NieuwPad = pad + (y + 1) + "," + x + "/";
                 if (first) {
@@ -175,7 +179,9 @@ public class Helper extends Voorwerpen {
             }
             y = Y;
             x = X;
-            if (Doolhof[y][x - 1].equals(m) || oudKleinerDanNieuw((x - 1), y, afstand, node)) {
+            //kijkt of de tile naar het westen een muur is of of deze al bezocht is.
+            //als dat beide niet het geval is dan voegt hij deze toe aan bezochte paden
+            if (Doolhof[y][x - 1].equals(m) || bezocht((x - 1), y)) {
             } else {
                 String NieuwPad = pad + y + "," + (x - 1) + "/";
                 if (first) {
@@ -196,6 +202,7 @@ public class Helper extends Voorwerpen {
     }
 
     private boolean checkEinde() {
+        //checkt of de solver al een weg naar de uitgang heeft gevonden
         int node = selectNode();
         ArrayList<int[]> coordinaten = new ArrayList<>();
         coordinaten = getLaatsteCoords(node);
@@ -214,9 +221,9 @@ public class Helper extends Voorwerpen {
     }
 
     private ArrayList<int[]> getLaatsteCoords(int node) {
+        //de paden zijn opgeslagen als strings. deze method haalt de laatste coordinaten van de geselecteerde string op
         int[] nummers = new int[2];
         ArrayList<int[]> coords = new ArrayList<>();
-        int[] out = new int[2];
         String numbers[] = paden.get(node).split("/");
         for (String part : numbers) {
             nummers[0] = Integer.parseInt(part.split(",")[0]);
@@ -226,31 +233,19 @@ public class Helper extends Voorwerpen {
         return coords;
     }
 
-    private boolean oudKleinerDanNieuw(int x, int y, int nieuweLengte, int node) {
-        final boolean NIEUW_IS_KLEINER_DAN_OUD = false;
-        final boolean OUD_IS_KLEINER_DAN_NIEUW = true;
+    private boolean bezocht(int x, int y) {
+        //checkt of een x,y coordinaat al een keer bezocht is
+        final boolean NODE_IS_AL_BEZOCHT = true;
         final boolean NODE_IS_NOG_NIET_BEZOCHT = false;
         int lengte = bezocht.size();
-        int lengtePaden;
-        int[] lengtes = new int[3];
+        int[] lengtes = new int[2];
         for (int i = 0; i < lengte; i++) {
             if (bezocht.get(i)[0] == x && bezocht.get(i)[1] == y) {
-                lengtePaden = bezocht.get(i)[2];
-                if (nieuweLengte < lengtePaden) {
-                    lengtes[0] = x;
-                    lengtes[1] = y;
-                    lengtes[2] = nieuweLengte;
-
-                    bezocht.set(node, lengtes);
-                    return NIEUW_IS_KLEINER_DAN_OUD;
-                } else {
-                    return OUD_IS_KLEINER_DAN_NIEUW;
-                }
+                return NODE_IS_AL_BEZOCHT;
             }
         }
         lengtes[0] = x;
         lengtes[1] = y;
-        lengtes[2] = nieuweLengte;
         bezocht.add(lengtes);
         return NODE_IS_NOG_NIET_BEZOCHT;
     }
