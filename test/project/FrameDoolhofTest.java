@@ -114,13 +114,28 @@ public class FrameDoolhofTest {
         boolean een;
         boolean twee;
         boolean drie;
-        boolean totaal;
+        boolean result = false;
         if (instance.canMove("Omlaag", 1, 1)) {
             een = true;
+        } else {
+            een = false;
         }
         instance.Dh.setStappen(0);
-        if(!instance.canMove("Omlaag",1,1)){
+        if (!instance.canMove("Omlaag", 1, 1)) {
             twee = true;
+        } else {
+            twee = false;
         }
+        instance.Dh.setStappen(-1);
+        if (!instance.canMove("Omlaag", 1, 1)) {
+            drie = true;
+        } else {
+            drie = false;
+        }
+        if (een == twee == drie && een == true) {
+            result = true;
+        }
+        boolean expResult = true;
+        assertEquals(expResult, result);
     }
 }
