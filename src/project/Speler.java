@@ -59,8 +59,4 @@ public class Speler {
     public Character getDirection() {
         return direction;
     }
-
-    public String toString() {
-        return "S";
-    }
 }

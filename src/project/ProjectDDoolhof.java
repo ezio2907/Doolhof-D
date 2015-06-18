@@ -15,8 +15,6 @@ import javax.swing.*;
 
 public class ProjectDDoolhof {
 
-    public String[][] Doolhof;
-
     public static void main(String[] args) throws IOException {
         FrameDoolhof FD = new FrameDoolhof();
         FD.opbouw(1);

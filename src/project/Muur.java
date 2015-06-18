@@ -31,10 +31,6 @@ public class Muur extends Voorwerpen {
         return true;
     }
 
-    public void vernietig() {
-        System.out.println("muur word vernietigd");
-    }
-
     public boolean getVernietigbaar() {
         return vernietigbaar;
     }
