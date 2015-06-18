@@ -56,19 +56,18 @@ public class Vijand {
         Random generator = new Random();
         boolean moved = false;
         if(kanten[0] == kanten[1] && kanten[1] == kanten[2] && kanten[2] == kanten[3] && kanten[1] == false){
-                if(getDirection() == 'N'){
-                    setDirection('S');
+                if(direction == 'N'){
+                    kanten[3] = true;
                 }
-                if(getDirection() == 'E'){
-                    setDirection('W');
+                if(direction == 'E'){
+                    kanten[1] = true;
                 }
-                if(getDirection() == 'W'){
-                    setDirection('E');
+                if(direction == 'W'){
+                    kanten[2] = true;
                 }
-                if(getDirection() == 'S'){
-                    setDirection('N');
+                if(direction == 'S'){
+                    kanten[0] = true;
                 }
-                moved = true;
             }
         int kant = generator.nextInt(3);
         while(!moved){

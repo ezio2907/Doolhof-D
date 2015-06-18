@@ -425,13 +425,13 @@ public class FrameDoolhof {
     }
     
     class TimerListener implements ActionListener{
-        int elapsedSeconds = 53;
+        int elapsedSeconds = 72;
 
         @Override
         public void actionPerformed(ActionEvent evt){
             elapsedSeconds--;
             if(elapsedSeconds <= 0){
-                elapsedSeconds = 53;
+                elapsedSeconds = 72;
                 timer.start();
                 beweegVijand();
             }
